@@ -32,6 +32,7 @@
             android:scrollbars="vertical"
             tools:listitem="@layout/list_item_view" />
 
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -2,6 +2,8 @@ package pt.ipleiria.ppb;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -32,7 +35,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        recyclerView = findViewById(R.id.recycler_view);
         setSupportActionBar(toolbar);
 
 
@@ -45,11 +47,27 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_game);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+
+        recyclerView = findViewById(R.id.recycler_view);
         setupRecycler();
         PPB = SingletonPPB.getInstance();
 
-        Game game1 = new Game(1,"dsds", "dsdsad");
+        Game game1 = new Game("ds","dsds", "er",12);
+        Game game2 = new Game("easd","sdfgg", "sdfsdf23",15);
+        Game game3 = new Game("cc","dsgfdsds", "234",16);
         PPB.getGames().add(game1);
+        PPB.getGames().add(game2);
+        PPB.getGames().add(game3);
+
 
         mAdapter.updateList(game1);
 

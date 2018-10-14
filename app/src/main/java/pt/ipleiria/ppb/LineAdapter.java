@@ -3,11 +3,12 @@ package pt.ipleiria.ppb;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import pt.ipleiria.ppb.model.Game;
 import pt.ipleiria.ppb.model.LineHolder;
@@ -30,8 +31,18 @@ class LineAdapter extends RecyclerView.Adapter<LineHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull LineHolder lineHolder, int i) {
-
+        final int position = i;
         lineHolder.gameTitle.setText(mGames.get(i).getTitle());
+
+        lineHolder.imageBtnDelete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Delete pos: " + position,
+                        Toast.LENGTH_SHORT).show();
+                removerItem(position);
+
+            }
+        });
 
     }
 

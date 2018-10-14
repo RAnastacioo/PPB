@@ -19,15 +19,22 @@
 
     <TextView
         android:id="@+id/gameTitle"
-        android:layout_width="231dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:hint="ExampleList" />
 
     <ImageButton
+        android:id="@+id/imageBtnEdit"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
+
+    <ImageButton
         android:id="@+id/imageBtnDelete"
-        android:layout_width="78dp"
-        android:layout_height="wrap_content"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_weight="1"
         app:srcCompat="@android:drawable/ic_menu_delete" />
 

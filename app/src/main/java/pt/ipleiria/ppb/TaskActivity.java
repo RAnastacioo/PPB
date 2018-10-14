@@ -14,14 +14,7 @@ public class TaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_task);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "add task", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
