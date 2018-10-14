@@ -2,9 +2,9 @@ package pt.ipleiria.ppb;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,14 +14,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
+import pt.ipleiria.ppb.model.Game;
+import pt.ipleiria.ppb.model.SingletonPPB;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private SingletonPPB PPB;
+    private RecyclerView recyclerView;
+    private LineAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        recyclerView = findViewById(R.id.recycler_view);
         setSupportActionBar(toolbar);
 
 
@@ -33,6 +44,38 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        setupRecycler();
+        PPB = SingletonPPB.getInstance();
+
+        Game game1 = new Game(1,"dsds", "dsdsad");
+        PPB.getGames().add(game1);
+
+        mAdapter.updateList(game1);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAdapter.updateFullList();
+    }
+
+    private void setupRecycler() {
+
+        // Configurando o gerenciador de layout para ser uma lista.
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // Adiciona o adapter que irá anexar os objetos à lista.
+        // Está sendo criado com lista vazia, pois será preenchida posteriormente.
+        mAdapter = new LineAdapter(new ArrayList<>(0));
+        recyclerView.setAdapter(mAdapter);
+
+
+        // Configurando um dividr entre linhas, para uma melhor visualização.
+        recyclerView.addItemDecoration(
+                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
     @Override

@@ -7,7 +7,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
+import pt.ipleiria.ppb.model.Game;
+import pt.ipleiria.ppb.model.SingletonPPB;
+
+
 public class GameActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +29,10 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+
+        Game game = new Game(2,"2222", "dsdsad");
+        SingletonPPB.getInstance().getGames().add(game);
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -31,4 +40,5 @@ public class GameActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
 }
