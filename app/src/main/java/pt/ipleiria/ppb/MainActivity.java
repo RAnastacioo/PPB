@@ -21,13 +21,13 @@ import java.util.ArrayList;
 
 import pt.ipleiria.ppb.model.Game;
 import pt.ipleiria.ppb.model.SingletonPPB;
+import pt.ipleiria.ppb.recyclerView.LineAdapter_game;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private SingletonPPB PPB;
     private RecyclerView recyclerView;
-    private LineAdapter mAdapter;
+    private LineAdapter_game mAdapter;
 
 
     @Override
@@ -51,7 +51,12 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+
+                Game game = new Game("ds","dsds", "er",12);
+                SingletonPPB.getInstance().getGames().add(game);
+                mAdapter.updateFullList();
+
+                Snackbar.make(view, "Add Game", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -87,7 +92,7 @@ public class MainActivity extends AppCompatActivity
 
         // Adiciona o adapter que irá anexar os objetos à lista.
         // Está sendo criado com lista vazia, pois será preenchida posteriormente.
-        mAdapter = new LineAdapter(new ArrayList<>(0));
+        mAdapter = new LineAdapter_game(new ArrayList<>(0));
         recyclerView.setAdapter(mAdapter);
 
 

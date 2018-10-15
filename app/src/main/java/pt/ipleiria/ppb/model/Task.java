@@ -12,13 +12,13 @@ public class Task {
  private ArrayList<String> ValidRule = new ArrayList<>();
 
 
-    public Task(int id, int order, String title, String description, int value, ArrayList<String> validRule) {
+    public Task(int id, int order, String title, String description, int value) {
         this.id = id;
         this.order = order;
         this.title = title;
         this.description = description;
         this.value = value;
-        ValidRule = validRule;
+      //  ValidRule = validRule;
     }
 
     public int getId() {

@@ -9,18 +9,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.View;
-
 import java.util.ArrayList;
-
 import pt.ipleiria.ppb.model.Game;
 import pt.ipleiria.ppb.model.SingletonPPB;
+import pt.ipleiria.ppb.model.Task;
+import pt.ipleiria.ppb.recyclerView.LineAdapter_task;
 
 
 public class GameActivity extends AppCompatActivity {
 
     private SingletonPPB PPB;
     private RecyclerView recyclerView;
-    private LineAdapter mAdapter;
+    private LineAdapter_task mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +33,12 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Game game = new Game("ds","dsds", "er",12);
-                SingletonPPB.getInstance().getGames().add(game);
+
+                Task task = new Task(1,2,"sdasd","adad",1);
+                SingletonPPB.getInstance().getTasks().add(task);
                 mAdapter.updateFullList();
 
-                Snackbar.make(view, "Add Game", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Add Task", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
             }
@@ -65,7 +66,7 @@ public class GameActivity extends AppCompatActivity {
 
         // Adiciona o adapter que irá anexar os objetos à lista.
         // Está sendo criado com lista vazia, pois será preenchida posteriormente.
-        mAdapter = new LineAdapter(new ArrayList<>(0));
+        mAdapter = new LineAdapter_task(new ArrayList<>(0));
         recyclerView.setAdapter(mAdapter);
 
 

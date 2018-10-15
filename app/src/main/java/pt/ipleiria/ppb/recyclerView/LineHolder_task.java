@@ -1,4 +1,4 @@
-package pt.ipleiria.ppb.model;
+package pt.ipleiria.ppb.recyclerView;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,17 +8,21 @@ import android.widget.TextView;
 
 import pt.ipleiria.ppb.R;
 
-public class LineHolder extends RecyclerView.ViewHolder {
+class LineHolder_task extends RecyclerView.ViewHolder {
 
-    public TextView gameTitle;
+    public TextView taskTitle,taskDescription;
     public ImageButton imageBtnDelete;
 
+   
 
-    public LineHolder(@NonNull View itemView) {
+
+    public LineHolder_task(@NonNull View itemView) {
         super(itemView);
 
-        gameTitle = (TextView) itemView.findViewById(R.id.gameTitle);
+        taskTitle = (TextView) itemView.findViewById(R.id.tasktitle);
+        taskDescription = itemView.findViewById(R.id.taskdescription);
         imageBtnDelete = (ImageButton) itemView.findViewById(R.id.imageBtnDelete);
+        
 
     }
 }
