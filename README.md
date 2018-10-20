@@ -1,5 +1,6 @@
 >###  Programação para Dispositivos Móveis
 # PPB - Peddy Paper Builder
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 ## Functional Requirements:
 
  ### The Main Screen
@@ -22,15 +23,9 @@
 -   The Search Screen should allow searching a game by game title or task title, and listing the games contained in the search result.
 -   If a game is selected, the Game Screen should be displayed.
 
-# APP flow :
+![enter image description here](https://cms-assets.tutsplus.com/uploads/users/1499/posts/30514/preview_image/gas.png)
+License
+----
+By Nabos
+**Free Software, Hell Yeah!*
 
-```mermaid
-graph LR
-A[Main] --> B(Game)
-A --> C((Search))
-B --> D(Task)
-A --> E((Share))
-D --> B
-C-->F{after game}
-E-->F{after game}
-```
