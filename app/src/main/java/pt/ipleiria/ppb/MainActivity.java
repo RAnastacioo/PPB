@@ -1,6 +1,7 @@
 package pt.ipleiria.ppb;
 
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,12 +80,41 @@ public class MainActivity extends AppCompatActivity {
         PPB.getGames().add(game3);
         mAdapter.updateList(game1);
 
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                // Row is swiped from recycler view
+                // remove it from adapter
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView,RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                // view the background view
+
+
+            }
+        };
+
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+
+
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         mAdapter.updateFullList();
     }
+
+
+
+
+
 
     private void setupRecycler() {
 
@@ -101,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(
                 new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
-
 
     private void goGame(){
         Intent intent = new Intent(MainActivity.this, GameActivity.class);

@@ -7,4 +7,11 @@
         android:title="Search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/action_return"
+        android:icon="@drawable/ic_action_return"
+        android:onClick="onClick_action_return"
+        android:orderInCategory="100"
+        android:title="return"
+        app:showAsAction="always" />
 </menu>

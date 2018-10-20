@@ -3,6 +3,7 @@ package pt.ipleiria.ppb;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
 public class TaskActivity extends AppCompatActivity {
 
@@ -18,5 +19,9 @@ public class TaskActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.upbar, menu);
         return true;
+    }
+
+    public void onClick_action_return(MenuItem item) {
+        onBackPressed();
     }
 }

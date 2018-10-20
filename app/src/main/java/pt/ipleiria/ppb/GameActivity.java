@@ -1,5 +1,7 @@
 package pt.ipleiria.ppb;
 
+import android.content.ClipData;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +9,9 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import java.util.ArrayList;
 
@@ -41,6 +45,7 @@ public class GameActivity extends AppCompatActivity {
                 Snackbar.make(view, "Add Task", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
+                goTask(); ///
             }
         });
 
@@ -58,6 +63,10 @@ public class GameActivity extends AppCompatActivity {
         return true;
     }
 
+    public void onClick_action_return(MenuItem item) {
+        onBackPressed();
+    }
+
     private void setupRecycler() {
 
         // Configurando o gerenciador de layout para ser uma lista.
@@ -73,6 +82,11 @@ public class GameActivity extends AppCompatActivity {
         // Configurando um dividr entre linhas, para uma melhor visualização.
         recyclerView.addItemDecoration(
                 new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+    }
+
+    private void goTask(){
+        Intent intent = new Intent(GameActivity.this, TaskActivity.class);
+        startActivity(intent);
     }
 
 }
