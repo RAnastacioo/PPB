@@ -1,6 +1,6 @@
 >###  Programação para Dispositivos Móveis
 # PPB - Peddy Paper Builder
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/RicardoAnastacio/PPB)
 ## Functional Requirements:
 
  ### The Main Screen
