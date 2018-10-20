@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     goGame();
                     return true;
                 case R.id.navigation_share:
-                    goTask();
+                    goSearch();
                     return true;
             }
             return false;

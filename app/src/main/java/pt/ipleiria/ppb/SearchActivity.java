@@ -3,6 +3,7 @@ package pt.ipleiria.ppb;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.SearchView;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -14,7 +15,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.searchbar, menu);
+        getMenuInflater().inflate(R.menu.searchview, menu);
         return true;
     }
 }

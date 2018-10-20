@@ -24,12 +24,15 @@
         <activity
             android:name=".TaskActivity"
             android:label="@string/title_activity_task"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme" />
-        <activity android:name=".SearchActivity">
+        <activity android:name=".SearchActivity"
+            android:label="SearchActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
