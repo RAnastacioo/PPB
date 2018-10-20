@@ -132,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(
                 new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
-
     private void goGame(){
         Intent intent = new Intent(MainActivity.this, GameActivity.class);
         startActivity(intent);
