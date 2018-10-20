@@ -22,10 +22,11 @@
 ### The Search Screen
 -   The Search Screen should allow searching a game by game title or task title, and listing the games contained in the search result.
 -   If a game is selected, the Game Screen should be displayed.
-
-![enter image description here](https://cms-assets.tutsplus.com/uploads/users/1499/posts/30514/preview_image/gas.png)
 License
 ----
 By Nabos
 **Free Software, Hell Yeah!*
+
+![enter image description here](https://cms-assets.tutsplus.com/uploads/users/1499/posts/30514/preview_image/gas.png)
+
 
