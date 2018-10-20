@@ -10,7 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.View;
 import java.util.ArrayList;
-import pt.ipleiria.ppb.model.Game;
+
 import pt.ipleiria.ppb.model.SingletonPPB;
 import pt.ipleiria.ppb.model.Task;
 import pt.ipleiria.ppb.recyclerView.LineAdapter_task;
@@ -54,7 +54,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.upbar, menu);
         return true;
     }
 
