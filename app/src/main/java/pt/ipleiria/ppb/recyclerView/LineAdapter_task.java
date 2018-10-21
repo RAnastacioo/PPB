@@ -1,5 +1,6 @@
 package pt.ipleiria.ppb.recyclerView;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,13 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import java.util.ArrayList;
-import java.util.List;
 import pt.ipleiria.ppb.R;
-import pt.ipleiria.ppb.model.Game;
+import pt.ipleiria.ppb.TaskActivity;
 import pt.ipleiria.ppb.model.SingletonPPB;
 import pt.ipleiria.ppb.model.Task;
 
-/// pode ser public '???
 public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
 
     private ArrayList<Task> mTaks;
@@ -43,14 +42,25 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
                 removerItem(position);
             }
         });
+
+        lineHolder_taks.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(v.getContext(), "Edit : " + position ,
+                        Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(v.getContext(), TaskActivity.class);
+                v.getContext().startActivity(intent);
+                //putExtra
+            }
+        });
     }
-    
 
     @Override
     public int getItemCount() {
         return mTaks != null ? mTaks.size() : 0;
     }
-
 
     public void updateList(Task task) {
         insertItem(task);
@@ -65,14 +75,12 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
         mTaks.add(task);
         notifyItemInserted(getItemCount());
     }
-
     // Método responsável por atualizar um usuário já existente na lista.
     private void updateItem(int position) {
         Task task = mTaks.get(position);
         
         notifyItemChanged(position);
     }
-
     // Método responsável por remover um usuário da lista.
     private void removerItem(int position) {
         mTaks.remove(position);
