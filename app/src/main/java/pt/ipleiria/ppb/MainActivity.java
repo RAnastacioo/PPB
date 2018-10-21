@@ -58,10 +58,10 @@ public class MainActivity extends AppCompatActivity {
                     mAdapter.updateList(game1);
                     return true;
                 case R.id.navigation_search:
-                    goGame();
+                    goSearch();
                     return true;
                 case R.id.navigation_share:
-                    goSearch();
+                    goGame();
                     return true;
             }
             return false;
