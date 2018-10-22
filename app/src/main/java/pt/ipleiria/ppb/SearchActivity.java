@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 
 public class SearchActivity extends AppCompatActivity {
-
+ 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
