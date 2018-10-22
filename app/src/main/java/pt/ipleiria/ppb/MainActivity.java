@@ -12,24 +12,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
-
 import pt.ipleiria.ppb.model.Game;
 import pt.ipleiria.ppb.model.SingletonPPB;
 import pt.ipleiria.ppb.recyclerView.LineAdapter_game;
@@ -56,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
                     PPB.getGames().add(game2);
                     PPB.getGames().add(game3);
                     mAdapter.updateList(game1);
+                    mAdapter.updateList(game2);
+                    mAdapter.updateList(game3);
+
                     return true;
                 case R.id.navigation_search:
                     goSearch();
@@ -72,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher_icon);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -119,8 +116,8 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         builder = new AlertDialog.Builder(MainActivity.this);
                     }
-                    builder.setTitle("Delete Contact")
-                            .setMessage("Are you sure you want to delete this entry?")
+                    builder.setTitle(R.string.delete_game)
+                            .setMessage(R.string.delete_game_mensage)
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // continue with delete
@@ -133,10 +130,10 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
+                            .show().setCanceledOnTouchOutside(false);
                 } else {
                     mAdapter.EditItem(position);
-
+                    goGame();
                 }
             }
 
@@ -184,10 +181,8 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new LineAdapter_game(new ArrayList<>(0));
         recyclerView.setAdapter(mAdapter);
 
-
         // Configurando um dividr entre linhas, para uma melhor visualização.
-        recyclerView.addItemDecoration(
-                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
     private void goGame(){
         Intent intent = new Intent(MainActivity.this, GameActivity.class);

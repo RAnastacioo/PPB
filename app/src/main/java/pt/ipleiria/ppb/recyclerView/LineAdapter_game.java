@@ -39,24 +39,6 @@ public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game>  {
         lineHolder.gameTitle.setText(mGames.get(i).getTitle());
         lineHolder.gameDescription.setText(mGames.get(i).getDescription());
 
-        lineHolder.imageBtnDelete.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Delete pos: " + position,
-                        Toast.LENGTH_SHORT).show();
-                removerItem(position);
-            }
-        });
-
-        lineHolder.imageBtnEdit.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Edit pos: " + position,
-                        Toast.LENGTH_SHORT).show();
-                removerItem(position);
-            }
-        });
-
         lineHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

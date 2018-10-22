@@ -3,6 +3,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_game">GameActivity</string>
     <string name="title_activity_task">TaskActivity</string>
+    <string name="title_activity_Search">SearchActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -12,4 +13,6 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="delete_game">Delete Game</string>
+    <string name="delete_game_mensage">Are you sure you want to delete this entry?</string>
 </resources>
