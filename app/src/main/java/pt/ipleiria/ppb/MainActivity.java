@@ -39,17 +39,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_addGame:
-                    PPB = SingletonPPB.getInstance();
-                    Game game1 = new Game("ds","dsds", "er",12);
-                    Game game2 = new Game("easd","sdfgg", "sdfsdf23",15);
-                    Game game3 = new Game("cc","dsgfdsds", "234",16);
-                    PPB.getGames().add(game1);
-                    PPB.getGames().add(game2);
-                    PPB.getGames().add(game3);
-                    mAdapter.updateList(game1);
-                    mAdapter.updateList(game2);
-                    mAdapter.updateList(game3);
-
+                    goGame();
                     return true;
                 case R.id.navigation_search:
                     goSearch();
@@ -69,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher_icon);
+
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -92,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+       // mAdapter.updateFullList();
+    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
         mAdapter.updateFullList();
     }
     private void initSwipe(){

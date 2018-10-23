@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <ScrollView
@@ -26,19 +26,22 @@
                 android:orientation="vertical">
 
                 <include
+                    android:id="@+id/include_game"
                     layout="@layout/content_gameinfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
         </ScrollView>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/add_task"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
+            android:layout_margin="16dp"
             android:layout_marginBottom="16dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:srcCompat="@drawable/ic_action_task_add"
             tools:layout_editor_absoluteX="337dp" />
