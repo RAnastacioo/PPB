@@ -25,8 +25,6 @@ public class LineHolder_game extends RecyclerView.ViewHolder {
 
         gameTitle = (TextView) itemView.findViewById(R.id.gametitle);
         gameDescription = (TextView) itemView.findViewById(R.id.gamedescription);
-        imageBtnDelete = (ImageButton) itemView.findViewById(R.id.imageBtnDelete);
-        imageBtnEdit =itemView.findViewById(R.id.imageBtnEdit);
 
     }
 

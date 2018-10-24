@@ -19,7 +19,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         //Animation image
         // load the animation
         Animation animRotate = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
-        ImageView imagemSplash = findViewById(R.id.ic_action_name);
+        ImageView imagemSplash = findViewById(R.id.id_launcher_icon);
         imagemSplash.startAnimation(animRotate);
 
 
@@ -32,7 +32,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 } catch (Exception e) {
 
                 } finally {
-
                     goMain();
                 }
             }
