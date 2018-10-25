@@ -11,10 +11,20 @@ public class SingletonPPB {
 
     private ArrayList<Game> games = new ArrayList<>();
     private ArrayList<Task> tasks = new ArrayList<>();
+    private boolean editGame=false;
 
     private SingletonPPB() {
 
 
+    }
+
+
+    public boolean isEditGame() {
+        return editGame;
+    }
+
+    public void setEditGame(boolean editGame) {
+        this.editGame = editGame;
     }
 
     public ArrayList<Game> getGames() {

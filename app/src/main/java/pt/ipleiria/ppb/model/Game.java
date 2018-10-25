@@ -3,11 +3,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 public class Game {
 
 
-    private int id;
+    private String id;
     private String title;
     private String description;
     private String user;
@@ -16,6 +17,7 @@ public class Game {
     private ArrayList<Task> tasks = new ArrayList<>();
 
     public Game(String title, String description, String user, int durationGame) {
+        this.id =UUID.randomUUID().toString();
         this.title = title;
         this.description = description;
         this.user = user;
@@ -36,13 +38,10 @@ public class Game {
         return date;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
