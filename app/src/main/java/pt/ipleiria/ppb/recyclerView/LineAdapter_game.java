@@ -43,8 +43,8 @@ public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game>  {
             public void onClick(View v) {
 
                 Toast.makeText(v.getContext(), "Edit: " +  mGames.get(position).getId() , Toast.LENGTH_SHORT).show();
-                SingletonPPB.getInstance().setEditGame(true);
 
+                SingletonPPB.getInstance().setEditGame(true);
                 Intent intent = new Intent(v.getContext(), GameActivity.class);
                 intent.putExtra( "id_editGame" ,mGames.get(position).getId());
                 v.getContext().startActivity(intent);

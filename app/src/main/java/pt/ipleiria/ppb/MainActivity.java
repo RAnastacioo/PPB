@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_addGame:
                     goGame();
+                    PPB.setEditGame(false);
                     return true;
                 case R.id.navigation_search:
                     goSearch();

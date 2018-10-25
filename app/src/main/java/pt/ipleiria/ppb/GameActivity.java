@@ -1,6 +1,7 @@
 package pt.ipleiria.ppb;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher_icon);
 
@@ -41,7 +43,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Task task = new Task(1,2,"sdasd","adad",1);
+                Task task = new Task(2,"sdasd","adad",1);
                 SingletonPPB.getInstance().getTasks().add(task);
                 mAdapter.updateFullList();
 
@@ -57,9 +59,19 @@ public class GameActivity extends AppCompatActivity {
         View v =  findViewById(R.id.include_gametask);
         v.setVisibility(View.VISIBLE); // esconder layout include View.INVISIBLE |View.VISIBLE
         View vfab =  findViewById(R.id.add_task);
-        vfab.setVisibility(View.VISIBLE);
         View vbtn =  findViewById(R.id.btn_add_game);
         vbtn.setVisibility(View.VISIBLE);
+
+        EditText etTitle = findViewById(R.id.game_Title);
+        Intent i= getIntent();
+        String id= i.getStringExtra("id_editGame");
+
+        if(SingletonPPB.getInstance().isEditGame()) {
+            vbtn.setVisibility(View.INVISIBLE);
+            vfab.setVisibility(View.VISIBLE);
+            etTitle.setText(id);
+        }
+
 
 
     }

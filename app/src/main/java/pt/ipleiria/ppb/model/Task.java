@@ -1,10 +1,11 @@
 package pt.ipleiria.ppb.model;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Task {
 
- private int id;
+ private String id;
  private int order;
  private String title;
  private String description;
@@ -12,8 +13,8 @@ public class Task {
  private ArrayList<String> ValidRule = new ArrayList<>();
 
 
-    public Task(int id, int order, String title, String description, int value) {
-        this.id = id;
+    public Task(int order, String title, String description, int value) {
+        this.id = UUID.randomUUID().toString();
         this.order = order;
         this.title = title;
         this.description = description;
@@ -21,7 +22,8 @@ public class Task {
       //  ValidRule = validRule;
     }
 
-    public int getId() {
+
+    public String getId() {
         return id;
     }
 
@@ -43,10 +45,6 @@ public class Task {
 
     public ArrayList<String> getValidRule() {
         return ValidRule;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setOrder(int order) {
