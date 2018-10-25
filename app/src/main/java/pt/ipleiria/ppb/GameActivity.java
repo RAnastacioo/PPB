@@ -98,14 +98,18 @@ public class GameActivity extends AppCompatActivity {
          EditText etDuration = findViewById(R.id.game_Duration);
 
         if (etTitle.getText().toString().isEmpty()) {
-            etTitle.setError("1!");
-        }else if (etDescription.getText().toString().isEmpty()) {
-            etDescription.setError("2!");
-        }else if (etAuthor.getText().toString().isEmpty()) {
-            etAuthor.setError("3!");
-        }else if (etDuration.getText().toString().isEmpty()) {
-            etDuration.setError("4!");
-        }else{
+            etTitle.setError(getString(R.string.Invalid_Title));
+        }
+        if (etDescription.getText().toString().isEmpty()) {
+            etDescription.setError(getString(R.string.Invalid_Description));
+        }
+        if (etAuthor.getText().toString().isEmpty()) {
+            etAuthor.setError(getString(R.string.Invalid_Author_Name));
+        }
+        if (etDuration.getText().toString().isEmpty()) {
+            etDuration.setError(getString(R.string.Invalid_Time_Duration));
+        }
+        if(!etTitle.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty() && !etAuthor.getText().toString().isEmpty() && !etDuration.getText().toString().isEmpty()){
             // obter o texto do title
             String title = etTitle.getText().toString();
             // obter o texto do descricao
