@@ -10,6 +10,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import pt.ipleiria.ppb.R;
 import pt.ipleiria.ppb.TaskActivity;
+import pt.ipleiria.ppb.model.Game;
 import pt.ipleiria.ppb.model.SingletonPPB;
 import pt.ipleiria.ppb.model.Task;
 
@@ -66,11 +67,6 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
         insertItem(task);
     }
 
-    public void updateFullList() {
-        mTaks = SingletonPPB.getInstance().getTasks();
-        notifyDataSetChanged();
-    }
-
     private void insertItem(Task task) {
         mTaks.add(task);
         notifyItemInserted(getItemCount());
@@ -78,7 +74,6 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
     // Método responsável por atualizar um usuário já existente na lista.
     private void updateItem(int position) {
         Task task = mTaks.get(position);
-        
         notifyItemChanged(position);
     }
     // Método responsável por remover um usuário da lista.
@@ -89,4 +84,9 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
     }
 
 
+    public void updateFullList(Game game) {
+            mTaks = game.getTasks();
+            notifyDataSetChanged();
+
+    }
 }

@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_addGame:
                     goGame();
-                    PPB.setEditGame(false);
                     return true;
                 case R.id.navigation_search:
                     goSearch();
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         initSwipe();
 
         PPB = SingletonPPB.getInstance();
-        Game game1 = new Game("ds","dsds", "er",12);
+        Game game1 = new Game("ds","dsds","sdsd",12);
         Game game2 = new Game("easd","sdfgg", "sdfsdf23",15);
         Game game3 = new Game("cc","dsgfdsds", "234",16);
         PPB.getGames().add(game1);
@@ -84,13 +83,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-       // mAdapter.updateFullList();
+       mAdapter.updateFullList();
     }
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        mAdapter.updateFullList();
-    }
+
     private void initSwipe(){
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {

@@ -10,21 +10,10 @@ public class SingletonPPB {
     }
 
     private ArrayList<Game> games = new ArrayList<>();
-    private ArrayList<Task> tasks = new ArrayList<>();
-    private boolean editGame=false;
 
     private SingletonPPB() {
 
 
-    }
-
-
-    public boolean isEditGame() {
-        return editGame;
-    }
-
-    public void setEditGame(boolean editGame) {
-        this.editGame = editGame;
     }
 
     public ArrayList<Game> getGames() {
@@ -35,11 +24,14 @@ public class SingletonPPB {
         this.games = games;
     }
 
-    public ArrayList<Task> getTasks() {
-        return tasks;
+    public Game containsID(String id) {
+
+        for (Game g : games) {
+            if (g.getId().equals(id)) {
+                return g;
+            }
+        }
+        return null;
     }
 
-    public void setTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-    }
 }

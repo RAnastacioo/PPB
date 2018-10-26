@@ -14,9 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
-
 import pt.ipleiria.ppb.model.Game;
 import pt.ipleiria.ppb.model.SingletonPPB;
 import pt.ipleiria.ppb.model.Task;
@@ -33,45 +33,63 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
+        PPB = SingletonPPB.getInstance();
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher_icon);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_task);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Task task = new Task(2,"sdasd","adad",1);
-                SingletonPPB.getInstance().getTasks().add(task);
-                mAdapter.updateFullList();
-
-                Snackbar.make(view, "Add Task", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-            }
-        });
         recyclerView = findViewById(R.id.recycler_view);
         setupRecycler();
-        mAdapter.updateFullList();
-
-        View v =  findViewById(R.id.include_gametask);
-        v.setVisibility(View.VISIBLE); // esconder layout include View.INVISIBLE |View.VISIBLE
-        View vfab =  findViewById(R.id.add_task);
-        View vbtn =  findViewById(R.id.btn_add_game);
-        vbtn.setVisibility(View.VISIBLE);
-
         EditText etTitle = findViewById(R.id.game_Title);
+        EditText etDescription = findViewById(R.id.game_Description);
+        EditText etAuthor = findViewById(R.id.game_Author);
+        EditText etDuration = findViewById(R.id.game_Duration);
+        TextView etId = findViewById(R.id.game_Id);
+        TextView etDate = findViewById(R.id.game_Update);
+
+        View vfab =  findViewById(R.id.add_task);
+        View vbtAddgame =  findViewById(R.id.btn_add_game);
+        View vGametask =  findViewById(R.id.include_gametask);
+
+        vfab.setVisibility(View.INVISIBLE);
+
         Intent i= getIntent();
-        String id= i.getStringExtra("id_editGame");
 
-        if(SingletonPPB.getInstance().isEditGame()) {
-            vbtn.setVisibility(View.INVISIBLE);
+        if(i.getStringExtra("id_editGame")!= null) {
+            vbtAddgame.setVisibility(View.INVISIBLE);
             vfab.setVisibility(View.VISIBLE);
-            etTitle.setText(id);
-        }
+            final String id= i.getStringExtra("id_editGame");
+            final Game game = PPB.containsID(id);
 
+            etTitle.setHint(game.getTitle());
+            etTitle.setEnabled(false);
+            etDescription.setHint(game.getDescription());
+            etDescription.setEnabled(false);
+            etAuthor.setHint(game.getAuthor());
+            etAuthor.setEnabled(false);
+            etDuration.setHint(""+game.getDurationGame());
+            etDuration.setEnabled(false);
+            etId.setText(""+game.getId());
+            etDate.setText(game.getLastUpdate());
+
+            mAdapter.updateFullList(game);
+
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                    Task task = new Task(2,"sdasd","adad",1);
+                    game.getTasks().add(task);
+                    mAdapter.updateList(task);
+
+                    Snackbar.make(view, "Add Task", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+        }
 
 
     }
@@ -101,7 +119,6 @@ public class GameActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(
                 new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
-
     public void onClick_btn_add_game(View view) {
 
          EditText etTitle = findViewById(R.id.game_Title);

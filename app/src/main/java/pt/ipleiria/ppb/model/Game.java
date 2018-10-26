@@ -11,30 +11,29 @@ public class Game {
     private String id;
     private String title;
     private String description;
-    private String user;
+    private String Author;
     private String lastUpdate;
     private int durationGame;
     private ArrayList<Task> tasks = new ArrayList<>();
 
-    public Game(String title, String description, String user, int durationGame) {
+    public Game(String title, String description, String Author, int durationGame) {
         this.id =UUID.randomUUID().toString();
         this.title = title;
         this.description = description;
-        this.user = user;
+        this.Author = Author;
         this.durationGame = durationGame;
         this.lastUpdate = getDateString();
     }
 
     public String getDateString() {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("ddd/MM/yyyy");
         String date = dateFormat.format(Calendar.getInstance().getTime());
         return date;
     }
 
     public Date getDate() {
         Date date = Calendar.getInstance().getTime();
-
         return date;
     }
 
@@ -59,12 +58,12 @@ public class Game {
         this.description = description;
     }
 
-    public String getUser() {
-        return user;
+    public String getAuthor() {
+        return Author;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUser(String Author) {
+        this.Author = Author;
     }
 
     public String getLastUpdate() {
