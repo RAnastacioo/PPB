@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import pt.ipleiria.ppb.R;
 import pt.ipleiria.ppb.TaskActivity;
@@ -82,5 +83,23 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
         Task task = mTaks.get(position);
         task.setTitle("Editado");
         notifyItemChanged(position);
+    }
+
+
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(mTaks, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(mTaks, i, i - 1);
+            }
+        }
+        for (int i = 0; i < mTaks.size(); i++) {
+            mTaks.get(i).setOrder(i+1);
+        }
+        notifyItemMoved(fromPosition,toPosition);
+        return true;
     }
 }

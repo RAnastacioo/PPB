@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import pt.ipleiria.ppb.GameActivity;
@@ -89,4 +90,19 @@ public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game> {
     }
 
 
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(mGames, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(mGames, i, i - 1);
+
+            }
+        }
+
+        notifyItemMoved(fromPosition,toPosition);
+        return true;
+    }
 }
