@@ -41,6 +41,9 @@ public class Game {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -62,8 +65,8 @@ public class Game {
         return Author;
     }
 
-    public void setUser(String Author) {
-        this.Author = Author;
+    public void setAuthor(String author) {
+        Author = author;
     }
 
     public String getLastUpdate() {

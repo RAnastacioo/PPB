@@ -74,10 +74,10 @@ public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game> {
         notifyItemInserted(getItemCount());
     }
 
-    public void EditItem(int position) {
-        Game game = mGames.get(position);
-        game.setTitle("Editado");
+    public String EditItem(int position) {
+        String id = mGames.get(position).getId();
         notifyItemChanged(position);
+        return id;
     }
 
     // Método responsável por atualizar um usuário já existente na lista.

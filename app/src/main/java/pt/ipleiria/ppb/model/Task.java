@@ -22,7 +22,6 @@ public class Task {
         //  ValidRule = validRule;
     }
 
-
     public String getId() {
         return id;
     }

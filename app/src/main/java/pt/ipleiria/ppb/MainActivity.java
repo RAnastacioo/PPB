@@ -67,17 +67,9 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         recyclerView = findViewById(R.id.recycler_view);
+
         setupRecycler();
         initSwipe();
-
-        PPB = SingletonPPB.getInstance();
-        Game game1 = new Game("ds", "dsds", "sdsd", 12);
-        Game game2 = new Game("easd", "sdfgg", "sdfsdf23", 15);
-        Game game3 = new Game("cc", "dsgfdsds", "234", 16);
-        PPB.getGames().add(game1);
-        PPB.getGames().add(game2);
-        PPB.getGames().add(game3);
-        mAdapter.updateList(game1);
 
     }
 
@@ -126,8 +118,9 @@ public class MainActivity extends AppCompatActivity {
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show().setCanceledOnTouchOutside(false);
                 } else {
-                    mAdapter.EditItem(position);
-                    goGame();
+                    Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                    intent.putExtra("id_EditGame", mAdapter.EditItem(position));
+                    startActivity(intent);
                 }
             }
 
@@ -173,8 +166,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Adiciona o adapter que irá anexar os objetos à lista.
         // Está sendo criado com lista vazia, pois será preenchida posteriormente.
-        mAdapter = new LineAdapter_game(new ArrayList<>(0));
-        recyclerView.setAdapter(mAdapter);
+       mAdapter = new LineAdapter_game(new ArrayList<>(0));
+       recyclerView.setAdapter(mAdapter);
 
         // Configurando um dividr entre linhas, para uma melhor visualização.
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));

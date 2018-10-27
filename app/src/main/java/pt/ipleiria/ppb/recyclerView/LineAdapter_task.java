@@ -77,9 +77,8 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
 
 
     public void updateFullList(Game game) {
-            mTaks = game.getTasks();
-            notifyDataSetChanged();
-
+        mTaks = game.getTasks();
+        notifyDataSetChanged();
     }
 
     public void EditItem(int position) {

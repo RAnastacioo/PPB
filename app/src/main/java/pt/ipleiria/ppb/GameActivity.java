@@ -23,9 +23,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
 import pt.ipleiria.ppb.model.Game;
 import pt.ipleiria.ppb.model.SingletonPPB;
 import pt.ipleiria.ppb.model.Task;
@@ -38,13 +44,15 @@ public class GameActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private LineAdapter_task mAdapter;
     private Paint p = new Paint();
+    private boolean editing;
+    private Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         PPB = SingletonPPB.getInstance();
-
+        editing = false;
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher_icon);
 
@@ -64,15 +72,17 @@ public class GameActivity extends AppCompatActivity {
         View vbtAddgame = findViewById(R.id.btn_add_game);
         View vGametask = findViewById(R.id.include_gametask);
         vfab.setVisibility(View.INVISIBLE);
-
+        View include_gametask = findViewById(R.id.include_gametask);
+        include_gametask.setVisibility(View.VISIBLE);
         Intent i = getIntent();
 
         if (i.getStringExtra("id_viewGame") != null) {
+            editing = false;
             vbtAddgame.setVisibility(View.INVISIBLE);
             vfab.setVisibility(View.VISIBLE);
 
             final String id = i.getStringExtra("id_viewGame");
-            final Game game = PPB.containsID(id);
+            game = PPB.containsID(id);
 
             mAdapter.updateFullList(game);
 
@@ -91,21 +101,43 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    Task task = new Task(2, "sdasd", "adad", 1);
-                   // game.getTasks().add(task);
-                    mAdapter.updateList(task);
-
-                    Snackbar.make(view, "Add Task", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    System.out.println(SingletonPPB.getInstance().getGames());
+                    Intent intent = new Intent(GameActivity.this, TaskActivity.class);
+                    intent.putExtra("id_addTask", game.getId());
+                    startActivity(intent);
                 }
             });
-
         }
 
+        if (i.getStringExtra("id_EditGame") != null) {
+            editing = true;
+            include_gametask.setVisibility(View.INVISIBLE);
+            vbtAddgame.setVisibility(View.VISIBLE);
+            vfab.setVisibility(View.INVISIBLE);
+            Button btnAddgame = findViewById(R.id.btn_add_game);
+            final String id = i.getStringExtra("id_EditGame");
+            game = PPB.containsID(id);
 
+            mAdapter.updateFullList(game);
+
+            etTitle.setText(game.getTitle());
+            etDescription.setText(game.getDescription());
+            etAuthor.setText(game.getAuthor());
+            etDuration.setText("" + game.getDurationGame());
+            etId.setText("" + game.getId());
+            etDate.setText(game.getLastUpdate());
+
+            btnAddgame.setText("Edit Game");
+
+        }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (game != null) {
+            mAdapter.updateFullList(game);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -164,11 +196,25 @@ public class GameActivity extends AppCompatActivity {
             String durationText = etDuration.getText().toString();
             int duration = Integer.parseInt(durationText.trim());
 
-            // criar game
-            PPB = SingletonPPB.getInstance();
-            Game game = new Game(title, description, Author, duration);
-            PPB.getGames().add(game);
+            if (editing && game != null) {
+                game.setTitle(title);
+                game.setDescription(description);
+                game.setAuthor(Author);
+                game.setDurationGame(Integer.parseInt(durationText));
+                game.setLastUpdate(getDateString());
 
+                Snackbar.make(view, "Edit Game Complete", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
+            } else {
+                // criar game
+                PPB = SingletonPPB.getInstance();
+                Game game = new Game(title, description, Author, duration);
+                PPB.getGames().add(game);
+
+                Snackbar.make(view, "Add Game Complete", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
             // Check if no view has focus:  // use remove keyboard front view
             view = this.getCurrentFocus();
             if (view != null) {
@@ -176,9 +222,8 @@ public class GameActivity extends AppCompatActivity {
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
 
+            finish();
 
-            Snackbar.make(view, "Add Game Complete", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
         }
     }
 
@@ -257,5 +302,17 @@ public class GameActivity extends AppCompatActivity {
 
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
+    }
+
+    public String getDateString() {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String date = dateFormat.format(Calendar.getInstance().getTime());
+        return date;
+    }
+
+    public Date getDate() {
+        Date date = Calendar.getInstance().getTime();
+        return date;
     }
 }

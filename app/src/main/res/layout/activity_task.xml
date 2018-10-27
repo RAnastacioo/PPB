@@ -52,13 +52,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_Description" />
 
-    <TextView
-        android:id="@+id/task_Id"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/task_order"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="99999"
-        app:layout_constraintStart_toEndOf="@+id/id"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="Order"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_value" />
 
     <TextView
@@ -69,36 +75,42 @@
         android:layout_marginTop="8dp"
         android:text="Id:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/task_value" />
+        app:layout_constraintTop_toBottomOf="@+id/task_order" />
 
     <TextView
         android:id="@+id/task_Order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:text="99999"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/task_value" />
-
-    <TextView
-        android:id="@+id/Order"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Order:"
-        app:layout_constraintEnd_toStartOf="@+id/task_Order"
-        app:layout_constraintTop_toBottomOf="@+id/task_value" />
+        app:layout_constraintStart_toEndOf="@+id/id"
+        app:layout_constraintTop_toBottomOf="@+id/task_order" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="8dp"
         android:text=" em falta Validation rule"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.432"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/task_value" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_task" />
+
+    <Button
+        android:id="@+id/btn_add_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="onClick_btn_add_task"
+        android:text="Add Task"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_Order" />
 
 </android.support.constraint.ConstraintLayout>
