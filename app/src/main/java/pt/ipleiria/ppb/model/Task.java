@@ -14,9 +14,8 @@ public class Task implements Serializable {
     private ArrayList<String> ValidRule = new ArrayList<>();
 
 
-    public Task(int order, String title, String description, int value) {
+    public Task(String title, String description, int value) {
         this.id = UUID.randomUUID().toString();
-        this.order = order;
         this.title = title;
         this.description = description;
         this.value = value;

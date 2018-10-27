@@ -42,7 +42,6 @@ public class TaskActivity extends AppCompatActivity {
         EditText etTitle = findViewById(R.id.task_Title);
         EditText etDescription = findViewById(R.id.task_Description);
         EditText etValue = findViewById(R.id.task_value);
-        EditText etOrder = findViewById(R.id.task_order);
 
         if (etTitle.getText().toString().isEmpty()) {
             etTitle.setError("");
@@ -53,19 +52,18 @@ public class TaskActivity extends AppCompatActivity {
         if (etValue.getText().toString().isEmpty()) {
             etValue.setError("");
         }
-        if (etOrder.getText().toString().isEmpty()) {
-            etOrder.setError("");
-        }
-        if (!etTitle.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty() && !etValue.getText().toString().isEmpty() && !etOrder.getText().toString().isEmpty()) {
+
+
+        if (!etTitle.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty() && !etValue.getText().toString().isEmpty()) {
             String title = etTitle.getText().toString();
             String description = etDescription.getText().toString();
             String strValue = etValue.getText().toString();
-            String strOrder = etOrder.getText().toString();
             int value = Integer.parseInt(strValue.trim());
-            int order = Integer.parseInt(strOrder.trim());
+
 
             // criar task
-            Task task = new Task(order, title, description, value);
+            Task task = new Task(title, description, value);
+            task.setOrder(gameAddTask.getTasks().size()+1);
             gameAddTask.getTasks().add(task);
 
             Snackbar.make(view, "Add Task Complete", Snackbar.LENGTH_LONG)
