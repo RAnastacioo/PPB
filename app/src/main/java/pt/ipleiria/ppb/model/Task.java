@@ -1,9 +1,10 @@
 package pt.ipleiria.ppb.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Task {
+public class Task implements Serializable {
 
     private String id;
     private int order;

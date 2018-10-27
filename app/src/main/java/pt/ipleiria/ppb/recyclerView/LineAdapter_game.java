@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +29,6 @@ public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game> {
     public LineHolder_game onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         return new LineHolder_game(LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.list_game_view, viewGroup, false));
-
-
     }
 
     @Override
@@ -44,12 +41,9 @@ public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game> {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(v.getContext(), "ID: " + mGames.get(position).getId(), Toast.LENGTH_SHORT).show();
-
                 Intent intent = new Intent(v.getContext(), GameActivity.class);
                 intent.putExtra("id_viewGame", mGames.get(position).getId());
                 v.getContext().startActivity(intent);
-
             }
         });
 

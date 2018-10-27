@@ -10,11 +10,7 @@ import pt.ipleiria.ppb.R;
 
 class LineHolder_task extends RecyclerView.ViewHolder {
 
-    public TextView taskTitle,taskDescription;
-    public ImageButton imageBtnDelete;
-
-   
-
+    public TextView taskTitle, taskDescription;
 
     public LineHolder_task(@NonNull View itemView) {
         super(itemView);

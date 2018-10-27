@@ -6,6 +6,16 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+
+import pt.ipleiria.ppb.model.Game;
+import pt.ipleiria.ppb.model.SingletonPPB;
 
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -28,7 +38,25 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 try {
                     super.run();
-                    sleep(500);  //Delay of 5 seconds
+                    try {
+                        FileInputStream fileInputStream = openFileInput("game.bin");
+                        ObjectInputStream objectInputStream = new
+                                ObjectInputStream(fileInputStream);
+                        SingletonPPB.getInstance().setGames((ArrayList<Game>) objectInputStream.readObject());
+                        objectInputStream.close();
+                        fileInputStream.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                        Toast.makeText(SplashScreenActivity.this,
+                                "Could not read game from internal storage (no Game yet?).",
+                                Toast.LENGTH_LONG).show();
+                    } catch (IOException | ClassNotFoundException e) {
+                        e.printStackTrace();
+                        Toast.makeText(SplashScreenActivity.this,
+                                "Error reading Game from internal storage.",
+                                Toast.LENGTH_LONG).show();
+                    }
+                    sleep(500);
                 } catch (Exception e) {
 
                 } finally {

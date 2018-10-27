@@ -1,5 +1,6 @@
 package pt.ipleiria.ppb;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,7 +21,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import pt.ipleiria.ppb.model.Game;
@@ -62,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher_icon);
 
-
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -78,6 +82,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mAdapter.updateFullList();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        try {
+            FileOutputStream fileOutputStream =
+                    openFileOutput("game.bin", Context.MODE_PRIVATE);
+            ObjectOutputStream objectOutputStream =
+                    new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(SingletonPPB.getInstance().getGames());
+            objectOutputStream.close();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(MainActivity.this,
+                    "Could not write Game to internal storage.",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     private void initSwipe() {
@@ -166,8 +190,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Adiciona o adapter que irá anexar os objetos à lista.
         // Está sendo criado com lista vazia, pois será preenchida posteriormente.
-       mAdapter = new LineAdapter_game(new ArrayList<>(0));
-       recyclerView.setAdapter(mAdapter);
+        mAdapter = new LineAdapter_game(new ArrayList<>(0));
+        recyclerView.setAdapter(mAdapter);
 
         // Configurando um dividr entre linhas, para uma melhor visualização.
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));

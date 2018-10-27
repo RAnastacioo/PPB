@@ -1,11 +1,12 @@
 package pt.ipleiria.ppb.model;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
-public class Game {
+public class Game implements Serializable {
 
 
     private String id;
@@ -14,7 +15,7 @@ public class Game {
     private String Author;
     private String lastUpdate;
     private int durationGame;
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks;
 
     public Game(String title, String description, String Author, int durationGame) {
         this.id =UUID.randomUUID().toString();
@@ -23,6 +24,7 @@ public class Game {
         this.Author = Author;
         this.durationGame = durationGame;
         this.lastUpdate = getDateString();
+        this.tasks = new ArrayList<>();
     }
 
     public String getDateString() {

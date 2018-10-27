@@ -31,12 +31,12 @@ public class TaskActivity extends AppCompatActivity {
         PPB = SingletonPPB.getInstance();
 
         Intent i = getIntent();
-            String id = i.getStringExtra("id_addTask");
-            gameAddTask = PPB.containsID(id);
-
+        String id = i.getStringExtra("id_addTask");
+        gameAddTask = PPB.containsID(id);
 
 
     }
+
     public void onClick_btn_add_task(View view) {
 
         EditText etTitle = findViewById(R.id.task_Title);
@@ -64,22 +64,23 @@ public class TaskActivity extends AppCompatActivity {
             int value = Integer.parseInt(strValue.trim());
             int order = Integer.parseInt(strOrder.trim());
 
-        // criar task
-        Task task = new Task(order,title,description,value);
+            // criar task
+            Task task = new Task(order, title, description, value);
             gameAddTask.getTasks().add(task);
 
-        Snackbar.make(view, "Add Task Complete", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-        // Check if no view has focus:  // use remove keyboard front view
+            Snackbar.make(view, "Add Task Complete", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            // Check if no view has focus:  // use remove keyboard front view
 
-        view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            view = this.getCurrentFocus();
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+            finish();
         }
-        finish();
     }
-    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);

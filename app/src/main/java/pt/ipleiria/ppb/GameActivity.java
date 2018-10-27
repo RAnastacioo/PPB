@@ -26,7 +26,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,7 +38,6 @@ import java.util.Date;
 
 import pt.ipleiria.ppb.model.Game;
 import pt.ipleiria.ppb.model.SingletonPPB;
-import pt.ipleiria.ppb.model.Task;
 import pt.ipleiria.ppb.recyclerView.LineAdapter_task;
 
 
@@ -128,6 +131,26 @@ public class GameActivity extends AppCompatActivity {
 
             btnAddgame.setText("Edit Game");
 
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        try {
+            FileOutputStream fileOutputStream =
+                    openFileOutput("game.bin", Context.MODE_PRIVATE);
+            ObjectOutputStream objectOutputStream =
+                    new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(SingletonPPB.getInstance().getGames());
+            objectOutputStream.close();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(GameActivity.this,
+                    "Could not write Game to internal storage.",
+                    Toast.LENGTH_LONG).show();
         }
     }
 
