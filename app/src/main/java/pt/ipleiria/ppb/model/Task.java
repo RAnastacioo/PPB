@@ -5,12 +5,12 @@ import java.util.UUID;
 
 public class Task {
 
- private String id;
- private int order;
- private String title;
- private String description;
- private int value;
- private ArrayList<String> ValidRule = new ArrayList<>();
+    private String id;
+    private int order;
+    private String title;
+    private String description;
+    private int value;
+    private ArrayList<String> ValidRule = new ArrayList<>();
 
 
     public Task(int order, String title, String description, int value) {
@@ -19,7 +19,7 @@ public class Task {
         this.title = title;
         this.description = description;
         this.value = value;
-      //  ValidRule = validRule;
+        //  ValidRule = validRule;
     }
 
 

@@ -11,10 +11,12 @@ public class SingletonPPB {
 
     private ArrayList<Game> games = new ArrayList<>();
 
+
     private SingletonPPB() {
 
 
     }
+
 
     public ArrayList<Game> getGames() {
         return games;

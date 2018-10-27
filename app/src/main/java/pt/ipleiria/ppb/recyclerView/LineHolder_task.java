@@ -21,8 +21,6 @@ class LineHolder_task extends RecyclerView.ViewHolder {
 
         taskTitle = (TextView) itemView.findViewById(R.id.tasktitle);
         taskDescription = itemView.findViewById(R.id.taskdescription);
-        imageBtnDelete = (ImageButton) itemView.findViewById(R.id.imageBtnDelete);
-        
 
     }
 }

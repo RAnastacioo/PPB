@@ -35,14 +35,6 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
         lineHolder_taks.taskTitle.setText(mTaks.get(i).getTitle());
         lineHolder_taks.taskDescription.setText(mTaks.get(i).getDescription());
 
-        lineHolder_taks.imageBtnDelete.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Delete pos: " + position,
-                        Toast.LENGTH_SHORT).show();
-                removerItem(position);
-            }
-        });
 
         lineHolder_taks.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +69,7 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
         notifyItemChanged(position);
     }
     // Método responsável por remover um usuário da lista.
-    private void removerItem(int position) {
+    public void removerItem(int position) {
         mTaks.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, mTaks.size());
@@ -88,5 +80,11 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
             mTaks = game.getTasks();
             notifyDataSetChanged();
 
+    }
+
+    public void EditItem(int position) {
+        Task task = mTaks.get(position);
+        task.setTitle("Editado");
+        notifyItemChanged(position);
     }
 }

@@ -20,7 +20,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
+
 import java.util.ArrayList;
+
 import pt.ipleiria.ppb.model.Game;
 import pt.ipleiria.ppb.model.SingletonPPB;
 import pt.ipleiria.ppb.recyclerView.LineAdapter_game;
@@ -69,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
         initSwipe();
 
         PPB = SingletonPPB.getInstance();
-        Game game1 = new Game("ds","dsds","sdsd",12);
-        Game game2 = new Game("easd","sdfgg", "sdfsdf23",15);
-        Game game3 = new Game("cc","dsgfdsds", "234",16);
+        Game game1 = new Game("ds", "dsds", "sdsd", 12);
+        Game game2 = new Game("easd", "sdfgg", "sdfsdf23", 15);
+        Game game3 = new Game("cc", "dsgfdsds", "234", 16);
         PPB.getGames().add(game1);
         PPB.getGames().add(game2);
         PPB.getGames().add(game3);
@@ -83,10 +85,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-       mAdapter.updateFullList();
+        mAdapter.updateFullList();
     }
 
-    private void initSwipe(){
+    private void initSwipe() {
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -100,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 // remove it from adapter
                 final int position = viewHolder.getAdapterPosition();
 
-                if (direction == ItemTouchHelper.LEFT){
+                if (direction == ItemTouchHelper.LEFT) {
 
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -130,29 +132,29 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onChildDraw(Canvas c, RecyclerView recyclerView,RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 // view the background view
                 Bitmap icon;
-                if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
 
                     View itemView = viewHolder.itemView;
                     float height = (float) itemView.getBottom() - (float) itemView.getTop();
                     float width = height / 3;
 
-                    if(dX > 0){
+                    if (dX > 0) {
                         p.setColor(Color.parseColor("#388E3C"));
-                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX,(float) itemView.getBottom());
-                        c.drawRect(background,p);
+                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX, (float) itemView.getBottom());
+                        c.drawRect(background, p);
                         icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_edit);
-                        RectF icon_dest = new RectF((float) itemView.getLeft() + width ,(float) itemView.getTop() + width,(float) itemView.getLeft()+ 2*width,(float)itemView.getBottom() - width);
-                        c.drawBitmap(icon,null,icon_dest,p);
+                        RectF icon_dest = new RectF((float) itemView.getLeft() + width, (float) itemView.getTop() + width, (float) itemView.getLeft() + 2 * width, (float) itemView.getBottom() - width);
+                        c.drawBitmap(icon, null, icon_dest, p);
                     } else {
                         p.setColor(Color.parseColor("#D32F2F"));
-                        RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(),(float) itemView.getRight(), (float) itemView.getBottom());
-                        c.drawRect(background,p);
+                        RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
+                        c.drawRect(background, p);
                         icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_delete);
-                        RectF icon_dest = new RectF((float) itemView.getRight() - 2*width ,(float) itemView.getTop() + width,(float) itemView.getRight() - width,(float)itemView.getBottom() - width);
-                        c.drawBitmap(icon,null,icon_dest,p);
+                        RectF icon_dest = new RectF((float) itemView.getRight() - 2 * width, (float) itemView.getTop() + width, (float) itemView.getRight() - width, (float) itemView.getBottom() - width);
+                        c.drawBitmap(icon, null, icon_dest, p);
                     }
                 }
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
@@ -162,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
     }
+
     private void setupRecycler() {
 
         // Configurando o gerenciador de layout para ser uma lista.
@@ -176,15 +179,18 @@ public class MainActivity extends AppCompatActivity {
         // Configurando um dividr entre linhas, para uma melhor visualização.
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
-    private void goGame(){
+
+    private void goGame() {
         Intent intent = new Intent(MainActivity.this, GameActivity.class);
         startActivity(intent);
     }
-    private void goTask(){
+
+    private void goTask() {
         Intent intent = new Intent(MainActivity.this, TaskActivity.class);
         startActivity(intent);
     }
-    private void goSearch(){
+
+    private void goSearch() {
         Intent intent = new Intent(MainActivity.this, SearchActivity.class);
         startActivity(intent);
     }

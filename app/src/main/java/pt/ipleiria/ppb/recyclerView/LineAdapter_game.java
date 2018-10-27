@@ -8,14 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import pt.ipleiria.ppb.GameActivity;
 import pt.ipleiria.ppb.R;
 import pt.ipleiria.ppb.model.Game;
 import pt.ipleiria.ppb.model.SingletonPPB;
 
-public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game>  {
+public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game> {
 
     private List<Game> mGames;
 
@@ -42,10 +44,10 @@ public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game>  {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(v.getContext(), "ID: " +  mGames.get(position).getId() , Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "ID: " + mGames.get(position).getId(), Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(v.getContext(), GameActivity.class);
-                intent.putExtra( "id_editGame" ,mGames.get(position).getId());
+                intent.putExtra("id_viewGame", mGames.get(position).getId());
                 v.getContext().startActivity(intent);
 
             }
@@ -57,29 +59,35 @@ public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game>  {
     public int getItemCount() {
         return mGames != null ? mGames.size() : 0;
     }
+
     public void updateList(Game game) {
         insertItem(game);
     }
+
     public void updateFullList() {
         mGames = SingletonPPB.getInstance().getGames();
         notifyDataSetChanged();
     }
+
     private void insertItem(Game game) {
         mGames.add(game);
         notifyItemInserted(getItemCount());
     }
+
     public void EditItem(int position) {
         Game game = mGames.get(position);
-        game.setTitle("GAME_1");
+        game.setTitle("Editado");
         notifyItemChanged(position);
     }
-// Método responsável por atualizar um usuário já existente na lista.
+
+    // Método responsável por atualizar um usuário já existente na lista.
     private void updateItem(int position) {
         Game game = mGames.get(position);
         //game.setTitle("GAME_1");
         notifyItemChanged(position);
     }
-// Método responsável por remover um usuário da lista.
+
+    // Método responsável por remover um usuário da lista.
     public void removerItem(int position) {
         mGames.remove(position);
         notifyItemRemoved(position);

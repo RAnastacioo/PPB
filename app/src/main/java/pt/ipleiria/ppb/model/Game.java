@@ -27,7 +27,7 @@ public class Game {
 
     public String getDateString() {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("ddd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String date = dateFormat.format(Calendar.getInstance().getTime());
         return date;
     }

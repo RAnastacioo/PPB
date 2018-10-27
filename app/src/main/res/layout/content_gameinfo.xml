@@ -112,7 +112,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:onClick="onClick_btn_add_game"
         android:text="Add Game"
         android:visibility="visible"
