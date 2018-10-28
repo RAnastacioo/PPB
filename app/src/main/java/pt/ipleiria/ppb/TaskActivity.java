@@ -63,7 +63,7 @@ public class TaskActivity extends AppCompatActivity {
 
             // criar task
             Task task = new Task(title, description, value);
-            task.setOrder(gameAddTask.getTasks().size()+1);
+            task.setOrder(gameAddTask.getTasks().size() + 1);
             gameAddTask.getTasks().add(task);
 
             Snackbar.make(view, "Add Task Complete", Snackbar.LENGTH_LONG)

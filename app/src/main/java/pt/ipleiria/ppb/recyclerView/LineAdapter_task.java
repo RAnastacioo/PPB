@@ -35,6 +35,7 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
         final int position = i;
         lineHolder_taks.taskTitle.setText(mTaks.get(i).getTitle());
         lineHolder_taks.taskDescription.setText(mTaks.get(i).getDescription());
+        lineHolder_taks.taskOrder.setText("" + mTaks.get(i).getOrder());
 
         lineHolder_taks.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +73,11 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
         mTaks.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, mTaks.size());
+        int i = position - 1;
+        for (; i < mTaks.size(); i++) {
+            mTaks.get(i).setOrder(i + 1);
+        }
+        notifyDataSetChanged();
     }
 
     public void updateFullList(Game game) {
@@ -97,9 +103,9 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
             }
         }
         for (int i = 0; i < mTaks.size(); i++) {
-            mTaks.get(i).setOrder(i+1);
+            mTaks.get(i).setOrder(i + 1);
         }
-        notifyItemMoved(fromPosition,toPosition);
+        notifyItemMoved(fromPosition, toPosition);
         return true;
     }
 }

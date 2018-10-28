@@ -10,13 +10,13 @@ import pt.ipleiria.ppb.R;
 
 class LineHolder_task extends RecyclerView.ViewHolder {
 
-    public TextView taskTitle, taskDescription;
+    public TextView taskTitle, taskDescription, taskOrder;
 
     public LineHolder_task(@NonNull View itemView) {
         super(itemView);
 
         taskTitle = (TextView) itemView.findViewById(R.id.tasktitle);
         taskDescription = itemView.findViewById(R.id.taskdescription);
-
+        taskOrder = itemView.findViewById(R.id.taskorder);
     }
 }

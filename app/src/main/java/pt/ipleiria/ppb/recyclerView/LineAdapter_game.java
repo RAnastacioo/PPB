@@ -102,7 +102,7 @@ public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game> {
             }
         }
 
-        notifyItemMoved(fromPosition,toPosition);
+        notifyItemMoved(fromPosition, toPosition);
         return true;
     }
 }

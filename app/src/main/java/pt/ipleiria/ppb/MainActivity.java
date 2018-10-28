@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     goSearch();
                     return true;
                 case R.id.navigation_share:
-                    goGame();
+
                     return true;
             }
             return false;
@@ -106,22 +106,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void initSwipe() {
 
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.UP | ItemTouchHelper.DOWN) {
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
-            @Override
-            public int getMovementFlags(RecyclerView recyclerView,
-                                        RecyclerView.ViewHolder viewHolder) {
-                int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
-                int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
-                return makeMovementFlags(dragFlags, swipeFlags);
-            }
             @Override
             public boolean isLongPressDragEnabled() {
                 return true;
             }
+
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                mAdapter.onItemMove(viewHolder.getAdapterPosition(),target.getAdapterPosition());
+                mAdapter.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
                 return false;
             }
 
@@ -132,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
                 final int position = viewHolder.getAdapterPosition();
 
                 if (direction == ItemTouchHelper.LEFT) {
-
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         builder = new AlertDialog.Builder(MainActivity.this, android.R.style.Theme_Material_Dialog_Alert);
@@ -154,11 +147,13 @@ public class MainActivity extends AppCompatActivity {
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show().setCanceledOnTouchOutside(false);
-                } else {
+
+                } else if (direction == ItemTouchHelper.RIGHT) {
                     Intent intent = new Intent(MainActivity.this, GameActivity.class);
                     intent.putExtra("id_EditGame", mAdapter.EditItem(position));
                     startActivity(intent);
                 }
+
             }
 
             @Override

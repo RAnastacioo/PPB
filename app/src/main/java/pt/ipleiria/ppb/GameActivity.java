@@ -9,7 +9,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.nfc.Tag;
+import android.os.AsyncTask;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -19,6 +22,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.Spanned;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +39,7 @@ import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 
 import pt.ipleiria.ppb.model.Game;
@@ -56,6 +62,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         PPB = SingletonPPB.getInstance();
         editing = false;
+
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher_icon);
 
@@ -73,10 +80,10 @@ public class GameActivity extends AppCompatActivity {
 
         View vfab = findViewById(R.id.add_task);
         View vbtAddgame = findViewById(R.id.btn_add_game);
-        View vGametask = findViewById(R.id.include_gametask);
         vfab.setVisibility(View.INVISIBLE);
         View include_gametask = findViewById(R.id.include_gametask);
         include_gametask.setVisibility(View.VISIBLE);
+
         Intent i = getIntent();
 
         if (i.getStringExtra("id_viewGame") != null) {
@@ -252,24 +259,45 @@ public class GameActivity extends AppCompatActivity {
 
     private void initSwipe() {
 
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            View recyclerview = recyclerView.findViewById(R.id.recycler_view);
 
-            @Override
-            public int getMovementFlags(RecyclerView recyclerView,
-                                        RecyclerView.ViewHolder viewHolder) {
-                int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
-                int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
-                return makeMovementFlags(dragFlags, swipeFlags);
-            }
+            int dragFrom = -1;
+            int dragTo = -1;
+
             @Override
             public boolean isLongPressDragEnabled() {
                 return true;
             }
+
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                mAdapter.onItemMove(viewHolder.getAdapterPosition(),target.getAdapterPosition());
+                int fromPosition = viewHolder.getAdapterPosition();
+                int toPosition = target.getAdapterPosition();
+
+                if (dragFrom == -1) {
+                    dragFrom = fromPosition;
+                }
+                dragTo = toPosition;
+
+                mAdapter.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
                 return false;
             }
+
+            private void reallyMoved() {
+                // I guessed this was what you want...
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                super.clearView(recyclerView, viewHolder);
+                if (dragFrom != -1 && dragTo != -1 && dragFrom != dragTo) {
+                    reallyMoved();
+                }
+                dragFrom = dragTo = -1;
+            }
+
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 // Row is swiped from recycler view
@@ -299,9 +327,8 @@ public class GameActivity extends AppCompatActivity {
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show().setCanceledOnTouchOutside(false);
-                } else {
+                } else if (direction == ItemTouchHelper.RIGHT) {
                     mAdapter.EditItem(position);
-                    return;
                 }
             }
 
