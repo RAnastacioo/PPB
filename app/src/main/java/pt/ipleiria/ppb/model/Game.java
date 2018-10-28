@@ -91,7 +91,4 @@ public class Game implements Serializable {
         return tasks;
     }
 
-    public void setTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-    }
 }

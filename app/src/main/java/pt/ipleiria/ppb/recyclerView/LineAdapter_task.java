@@ -42,8 +42,8 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
             public void onClick(View v) {
 
                 Intent intent = new Intent(v.getContext(), TaskActivity.class);
+                intent.putExtra("id_viewTask", mTaks.get(position).getId());
                 v.getContext().startActivity(intent);
-                //putExtra
             }
         });
     }
@@ -73,7 +73,12 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
         mTaks.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, mTaks.size());
-        int i = position - 1;
+        int i;
+        if (position == 0) {
+            i = position;
+        } else {
+            i = position - 1;
+        }
         for (; i < mTaks.size(); i++) {
             mTaks.get(i).setOrder(i + 1);
         }
@@ -85,10 +90,10 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
         notifyDataSetChanged();
     }
 
-    public void EditItem(int position) {
-        Task task = mTaks.get(position);
-        task.setTitle("Editado");
+    public String EditItem(int position) {
+        String id = mTaks.get(position).getId();
         notifyItemChanged(position);
+        return id;
     }
 
 

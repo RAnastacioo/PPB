@@ -89,7 +89,6 @@ public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game> {
         notifyItemRangeChanged(position, mGames.size());
     }
 
-
     public boolean onItemMove(int fromPosition, int toPosition) {
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {

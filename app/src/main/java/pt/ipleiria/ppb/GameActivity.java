@@ -9,8 +9,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.nfc.Tag;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -22,8 +20,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.text.Spanned;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +35,6 @@ import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 
 import pt.ipleiria.ppb.model.Game;
@@ -230,11 +225,11 @@ public class GameActivity extends AppCompatActivity {
                 game.setTitle(title);
                 game.setDescription(description);
                 game.setAuthor(Author);
-                game.setDurationGame(Integer.parseInt(durationText));
+                game.setDurationGame(duration);
                 game.setLastUpdate(getDateString());
 
-                Snackbar.make(view, "Edit Game Complete", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Edit Game Complete", Snackbar.LENGTH_LONG).show();
+                editing = false;
 
             } else {
                 // criar game
@@ -242,8 +237,7 @@ public class GameActivity extends AppCompatActivity {
                 Game game = new Game(title, description, Author, duration);
                 PPB.getGames().add(game);
 
-                Snackbar.make(view, "Add Game Complete", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Add Game Complete", Snackbar.LENGTH_LONG).show();
             }
             // Check if no view has focus:  // use remove keyboard front view
             view = this.getCurrentFocus();
@@ -251,9 +245,7 @@ public class GameActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
-
             finish();
-
         }
     }
 
@@ -284,7 +276,7 @@ public class GameActivity extends AppCompatActivity {
                 return false;
             }
 
-            private void reallyMoved() {
+            private void reallyMoved(int from, int to) {
                 // I guessed this was what you want...
                 mAdapter.notifyDataSetChanged();
             }
@@ -293,7 +285,7 @@ public class GameActivity extends AppCompatActivity {
             public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
                 super.clearView(recyclerView, viewHolder);
                 if (dragFrom != -1 && dragTo != -1 && dragFrom != dragTo) {
-                    reallyMoved();
+                    reallyMoved(dragFrom, dragTo);
                 }
                 dragFrom = dragTo = -1;
             }
@@ -328,7 +320,10 @@ public class GameActivity extends AppCompatActivity {
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show().setCanceledOnTouchOutside(false);
                 } else if (direction == ItemTouchHelper.RIGHT) {
-                    mAdapter.EditItem(position);
+                    Intent intent = new Intent(GameActivity.this, TaskActivity.class);
+                    intent.putExtra("id_EditTask", mAdapter.EditItem(position));
+                    intent.putExtra("id_EditTaskGame", game.getId());
+                    startActivity(intent);
                 }
             }
 

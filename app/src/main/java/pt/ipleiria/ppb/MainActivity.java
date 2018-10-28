@@ -28,13 +28,11 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import pt.ipleiria.ppb.model.Game;
 import pt.ipleiria.ppb.model.SingletonPPB;
 import pt.ipleiria.ppb.recyclerView.LineAdapter_game;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SingletonPPB PPB;
     private RecyclerView recyclerView;
     private LineAdapter_game mAdapter;
     private Paint p = new Paint();
