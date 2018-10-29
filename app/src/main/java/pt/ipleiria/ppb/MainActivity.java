@@ -208,11 +208,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void goTask() {
-        Intent intent = new Intent(MainActivity.this, TaskActivity.class);
-        startActivity(intent);
-    }
-
     private void goSearch() {
         Intent intent = new Intent(MainActivity.this, SearchActivity.class);
         startActivity(intent);

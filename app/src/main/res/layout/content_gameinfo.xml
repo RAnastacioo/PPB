@@ -20,7 +20,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:maxLength="29"/>
 
     <EditText
         android:id="@+id/game_Description"
@@ -35,7 +36,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/game_Title" />
+        app:layout_constraintTop_toBottomOf="@+id/game_Title"
+        android:maxLength="40"/>
 
     <EditText
         android:id="@+id/game_Author"
@@ -50,7 +52,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/game_Description" />
+        app:layout_constraintTop_toBottomOf="@+id/game_Description"
+        android:maxLength="40" />
 
     <EditText
         android:id="@+id/game_Duration"
@@ -65,7 +68,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/game_Author" />
+        app:layout_constraintTop_toBottomOf="@+id/game_Author"
+        android:maxLength="3" />
 
     <TextView
         android:id="@+id/id"

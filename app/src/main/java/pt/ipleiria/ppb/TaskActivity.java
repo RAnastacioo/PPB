@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,12 +36,16 @@ public class TaskActivity extends AppCompatActivity {
         PPB = SingletonPPB.getInstance();
 
         Intent i = getIntent();
+
         EditText etTitle = findViewById(R.id.task_Title);
         EditText etDescription = findViewById(R.id.task_Description);
         EditText etValue = findViewById(R.id.task_value);
+        InputFilterMinMax filter = new InputFilterMinMax("0", "5") {};
+        etValue.setFilters(new InputFilter[]{filter});
         TextView etId = findViewById(R.id.task_id);
         TextView etOrder = findViewById(R.id.task_order);
         Button btnAddtask = findViewById(R.id.btn_add_task);
+
 
 
         if (i.getStringExtra("id_viewTask") != null) {
@@ -91,7 +96,6 @@ public class TaskActivity extends AppCompatActivity {
 
         }
 
-
     }
 
     public void onClick_btn_add_task(View view) {
@@ -100,6 +104,7 @@ public class TaskActivity extends AppCompatActivity {
         EditText etDescription = findViewById(R.id.task_Description);
         EditText etValue = findViewById(R.id.task_value);
 
+
         if (etTitle.getText().toString().isEmpty()) {
             etTitle.setError("");
         }
@@ -107,7 +112,7 @@ public class TaskActivity extends AppCompatActivity {
             etDescription.setError("");
         }
         if (etValue.getText().toString().isEmpty()) {
-            etValue.setError("");
+            etValue.setError("Invalid number!\nValue Between (0-5)");
         }
 
         if (!etTitle.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty() && !etValue.getText().toString().isEmpty()) {

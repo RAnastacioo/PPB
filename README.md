@@ -1,5 +1,6 @@
 >###  Programação para Dispositivos Móveis
 # PPB - Peddy Paper Builder
+# android:maxLength="1" colocar nas edittext
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/RicardoAnastacio/PPB)
 ## Functional Requirements:
 

@@ -29,7 +29,7 @@ public class Game implements Serializable {
 
     public String getDateString() {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy  hh:mm:ss");
         String date = dateFormat.format(Calendar.getInstance().getTime());
         return date;
     }
