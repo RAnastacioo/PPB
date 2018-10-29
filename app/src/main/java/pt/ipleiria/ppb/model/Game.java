@@ -1,40 +1,41 @@
 package pt.ipleiria.ppb.model;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
-public class Game {
+public class Game implements Serializable {
 
 
     private String id;
     private String title;
     private String description;
-    private String user;
+    private String Author;
     private String lastUpdate;
     private int durationGame;
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks;
 
-    public Game(String title, String description, String user, int durationGame) {
+    public Game(String title, String description, String Author, int durationGame) {
         this.id =UUID.randomUUID().toString();
         this.title = title;
         this.description = description;
-        this.user = user;
+        this.Author = Author;
         this.durationGame = durationGame;
         this.lastUpdate = getDateString();
+        this.tasks = new ArrayList<>();
     }
 
     public String getDateString() {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String date = dateFormat.format(Calendar.getInstance().getTime());
         return date;
     }
 
     public Date getDate() {
         Date date = Calendar.getInstance().getTime();
-
         return date;
     }
 
@@ -42,6 +43,9 @@ public class Game {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -59,12 +63,12 @@ public class Game {
         this.description = description;
     }
 
-    public String getUser() {
-        return user;
+    public String getAuthor() {
+        return Author;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setAuthor(String author) {
+        Author = author;
     }
 
     public String getLastUpdate() {
@@ -87,7 +91,4 @@ public class Game {
         return tasks;
     }
 
-    public void setTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-    }
 }

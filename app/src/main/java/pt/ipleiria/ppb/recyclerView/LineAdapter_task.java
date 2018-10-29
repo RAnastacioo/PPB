@@ -6,11 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
 import java.util.ArrayList;
+import java.util.Collections;
+
 import pt.ipleiria.ppb.R;
 import pt.ipleiria.ppb.TaskActivity;
-import pt.ipleiria.ppb.model.SingletonPPB;
+import pt.ipleiria.ppb.model.Game;
 import pt.ipleiria.ppb.model.Task;
 
 public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
@@ -33,26 +35,15 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
         final int position = i;
         lineHolder_taks.taskTitle.setText(mTaks.get(i).getTitle());
         lineHolder_taks.taskDescription.setText(mTaks.get(i).getDescription());
-
-        lineHolder_taks.imageBtnDelete.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Delete pos: " + position,
-                        Toast.LENGTH_SHORT).show();
-                removerItem(position);
-            }
-        });
+        lineHolder_taks.taskOrder.setText("" + mTaks.get(i).getOrder());
 
         lineHolder_taks.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(v.getContext(), "Edit : " + position ,
-                        Toast.LENGTH_SHORT).show();
-
                 Intent intent = new Intent(v.getContext(), TaskActivity.class);
+                intent.putExtra("id_viewTask", mTaks.get(position).getId());
                 v.getContext().startActivity(intent);
-                //putExtra
             }
         });
     }
@@ -66,27 +57,60 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
         insertItem(task);
     }
 
-    public void updateFullList() {
-        mTaks = SingletonPPB.getInstance().getTasks();
-        notifyDataSetChanged();
-    }
-
     private void insertItem(Task task) {
         mTaks.add(task);
         notifyItemInserted(getItemCount());
     }
+
     // Método responsável por atualizar um usuário já existente na lista.
     private void updateItem(int position) {
         Task task = mTaks.get(position);
-        
         notifyItemChanged(position);
     }
+
     // Método responsável por remover um usuário da lista.
-    private void removerItem(int position) {
+    public void removerItem(int position) {
         mTaks.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, mTaks.size());
+        int i;
+        if (position == 0) {
+            i = position;
+        } else {
+            i = position - 1;
+        }
+        for (; i < mTaks.size(); i++) {
+            mTaks.get(i).setOrder(i + 1);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void updateFullList(Game game) {
+        mTaks = game.getTasks();
+        notifyDataSetChanged();
+    }
+
+    public String EditItem(int position) {
+        String id = mTaks.get(position).getId();
+        notifyItemChanged(position);
+        return id;
     }
 
 
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(mTaks, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(mTaks, i, i - 1);
+            }
+        }
+        for (int i = 0; i < mTaks.size(); i++) {
+            mTaks.get(i).setOrder(i + 1);
+        }
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+    }
 }

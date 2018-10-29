@@ -29,7 +29,8 @@
                     android:id="@+id/include_game"
                     layout="@layout/content_gameinfo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="visible" />
 
             </LinearLayout>
         </ScrollView>
@@ -41,7 +42,6 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:layout_marginBottom="16dp"
-            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:srcCompat="@drawable/ic_action_task_add"
             tools:layout_editor_absoluteX="337dp" />

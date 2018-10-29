@@ -1,4 +1,7 @@
->###  Programação para Dispositivos Móveis
+>###  Colocar snackbar's do editar e criar jogo e task 
+>###  Search screen 
+>###  Share screen
+#  Programação para Dispositivos Móveis
 # PPB - Peddy Paper Builder
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/RicardoAnastacio/PPB)
 ## Functional Requirements:

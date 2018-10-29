@@ -1,27 +1,26 @@
 package pt.ipleiria.ppb.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Task {
+public class Task implements Serializable {
 
- private String id;
- private int order;
- private String title;
- private String description;
- private int value;
- private ArrayList<String> ValidRule = new ArrayList<>();
+    private String id;
+    private int order;
+    private String title;
+    private String description;
+    private int value;
+    private ArrayList<String> ValidRule = new ArrayList<>();
 
 
-    public Task(int order, String title, String description, int value) {
+    public Task(String title, String description, int value) {
         this.id = UUID.randomUUID().toString();
-        this.order = order;
         this.title = title;
         this.description = description;
         this.value = value;
-      //  ValidRule = validRule;
+        //  ValidRule = validRule;
     }
-
 
     public String getId() {
         return id;

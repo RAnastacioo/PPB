@@ -15,12 +15,14 @@ public class SearchActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher_icon);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.searchview, menu);
         return true;
     }
+
     public void onClick_action_return(MenuItem item) {
         onBackPressed();
     }
