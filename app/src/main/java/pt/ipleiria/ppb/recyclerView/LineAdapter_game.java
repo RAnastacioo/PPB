@@ -100,8 +100,18 @@ public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game> {
 
             }
         }
-
         notifyItemMoved(fromPosition, toPosition);
         return true;
+    }
+    public ArrayList<Game> searchGame(String title) {
+        ArrayList<Game> res = new ArrayList<>();
+
+        for (Game g : mGames) {
+            if (g.getTitle().contains(title)) {
+                res.add(g);
+            }
+        }
+
+        return res;
     }
 }
