@@ -33,6 +33,10 @@
             android:name=".SearchActivity"
             android:label="@string/title_activity_Search"
             android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".ShareActivity"
+            android:label="ShareActivity"
+            android:theme="@style/AppTheme"></activity>
 
     </application>
 </manifest>

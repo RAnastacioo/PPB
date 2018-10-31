@@ -1,5 +1,6 @@
 package pt.ipleiria.ppb;
 
+import android.content.Context;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -32,6 +35,8 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         setupRecycler();
         mAdapter.updateFullList();
+
+
     }
 
     @Override
@@ -67,6 +72,14 @@ public class SearchActivity extends AppCompatActivity {
                 // Configurando um dividr entre linhas, para uma melhor visualização.
                 recyclerView.addItemDecoration(new DividerItemDecoration(SearchActivity.this, DividerItemDecoration.VERTICAL));
                 mAdapterSearch.notifyDataSetChanged();
+
+                //close keyboard
+                View view = SearchActivity.this.getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+
                 return false;
             }
         });

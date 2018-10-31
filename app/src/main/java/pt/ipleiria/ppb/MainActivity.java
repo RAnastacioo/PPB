@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     goSearch();
                     return true;
                 case R.id.navigation_share:
-
+                    goShare();
                     return true;
             }
             return false;
@@ -210,6 +210,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, SearchActivity.class);
         startActivity(intent);
     }
+
+    private void goShare() {
+        Intent intent = new Intent(MainActivity.this, ShareActivity.class);
+        startActivity(intent);
+    }
+
 
 }
 
