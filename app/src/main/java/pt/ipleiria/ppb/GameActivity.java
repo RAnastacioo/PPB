@@ -73,6 +73,15 @@ public class GameActivity extends AppCompatActivity {
         TextView etId = findViewById(R.id.game_Id);
         TextView etDate = findViewById(R.id.game_Update);
 
+        View vid = findViewById(R.id.id);
+        vid.setVisibility(View.INVISIBLE);
+        View vgame_id = findViewById(R.id.game_Id);
+        vgame_id.setVisibility(View.INVISIBLE);
+        View vdate = findViewById(R.id.date);
+        vdate.setVisibility(View.INVISIBLE);
+        View vgame_Update = findViewById(R.id.game_Update);
+        vgame_Update.setVisibility(View.INVISIBLE);
+
         View vfab = findViewById(R.id.add_task);
         View vbtAddgame = findViewById(R.id.btn_add_game);
         vfab.setVisibility(View.INVISIBLE);
@@ -85,6 +94,11 @@ public class GameActivity extends AppCompatActivity {
             editing = false;
             vbtAddgame.setVisibility(View.INVISIBLE);
             vfab.setVisibility(View.VISIBLE);
+
+            vid.setVisibility(View.VISIBLE);
+            vgame_id.setVisibility(View.VISIBLE);
+            vdate.setVisibility(View.VISIBLE);
+            vgame_Update.setVisibility(View.VISIBLE);
 
             final String id = i.getStringExtra("id_viewGame");
             game = PPB.containsID(id);
@@ -118,6 +132,11 @@ public class GameActivity extends AppCompatActivity {
             include_gametask.setVisibility(View.INVISIBLE);
             vbtAddgame.setVisibility(View.VISIBLE);
             vfab.setVisibility(View.INVISIBLE);
+            vid.setVisibility(View.VISIBLE);
+            vgame_id.setVisibility(View.VISIBLE);
+            vdate.setVisibility(View.VISIBLE);
+            vgame_Update.setVisibility(View.VISIBLE);
+
             Button btnAddgame = findViewById(R.id.btn_add_game);
             final String id = i.getStringExtra("id_EditGame");
             game = PPB.containsID(id);

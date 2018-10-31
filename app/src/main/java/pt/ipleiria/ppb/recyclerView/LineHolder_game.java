@@ -12,8 +12,6 @@ import pt.ipleiria.ppb.R;
 public class LineHolder_game extends RecyclerView.ViewHolder {
 
     public TextView gameTitle, gameDescription;
-    public ImageButton imageBtnDelete, imageBtnEdit;
-
 
     public LineHolder_game(@NonNull View itemView) {
         super(itemView);

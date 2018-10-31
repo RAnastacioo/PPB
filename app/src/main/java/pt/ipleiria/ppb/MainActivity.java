@@ -72,9 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         setupRecycler();
         initSwipe();
-
     }
-
 
     @Override
     protected void onResume() {
