@@ -16,6 +16,7 @@ public class Game implements Serializable {
     private String lastUpdate;
     private int durationGame;
     private ArrayList<Task> tasks;
+    private boolean isSelected = false;
 
     public Game(String title, String description, String Author, int durationGame) {
         this.id =UUID.randomUUID().toString();
@@ -25,6 +26,14 @@ public class Game implements Serializable {
         this.durationGame = durationGame;
         this.lastUpdate = getDateString();
         this.tasks = new ArrayList<>();
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     public String getDateString() {

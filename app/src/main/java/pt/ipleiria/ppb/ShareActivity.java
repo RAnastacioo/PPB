@@ -1,22 +1,34 @@
 package pt.ipleiria.ppb;
 
-
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.widget.Toolbar;
 
+import android.view.Menu;
+
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import pt.ipleiria.ppb.recyclerView.LineAdapter_game;
+import pt.ipleiria.ppb.model.Game;
+import pt.ipleiria.ppb.model.SingletonPPB;
+import pt.ipleiria.ppb.recyclerView.LineAdapter_game_Share;
 
 public class ShareActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private LineAdapter_game mAdapter;
+    private LineAdapter_game_Share mAdapter;
+    private Toolbar toolbar;
 
 
     @Override
@@ -28,12 +40,10 @@ public class ShareActivity extends AppCompatActivity {
         getSupportActionBar().setIcon(R.mipmap.ic_launcher_icon);
 
 
-
-
-
         recyclerView = findViewById(R.id.recycler_view);
         setupRecycler();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -44,6 +54,7 @@ public class ShareActivity extends AppCompatActivity {
     public void onClick_action_return(MenuItem item) {
         onBackPressed();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -58,11 +69,49 @@ public class ShareActivity extends AppCompatActivity {
 
         // Adiciona o adapter que irá anexar os objetos à lista.
         // Está sendo criado com lista vazia, pois será preenchida posteriormente.
-        mAdapter = new LineAdapter_game(new ArrayList<>(0));
+        mAdapter = new LineAdapter_game_Share(new ArrayList<>(0));
         recyclerView.setAdapter(mAdapter);
 
         // Configurando um dividr entre linhas, para uma melhor visualização.
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
-}
+    @Override
+    protected void onPause() {
+        super.onPause();
 
+        for (Game g : SingletonPPB.getInstance().getGames()) {
+            if (g.isSelected()) {
+                g.setSelected(false);
+            }
+        }
+
+    }
+
+    public void onClickbtn_share(View view) {
+        ArrayList<Game> toShareGames = new ArrayList<>();
+        for (Game g : SingletonPPB.getInstance().getGames()) {
+            if (g.isSelected()) {
+                g.setSelected(false);
+                toShareGames.add(g);
+            }
+        }
+        if (!toShareGames.isEmpty()) {
+            try {
+                FileOutputStream fileOutputStream =
+                        openFileOutput("sharedGames.bin", Context.MODE_PRIVATE);
+                ObjectOutputStream objectOutputStream =
+                        new ObjectOutputStream(fileOutputStream);
+                objectOutputStream.writeObject(toShareGames);
+                objectOutputStream.close();
+                fileOutputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(ShareActivity.this, "Could not write Game to internal storage.", Toast.LENGTH_LONG).show();
+            }
+
+            mAdapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(ShareActivity.this, "You must select at least one game to share!", Toast.LENGTH_LONG).show();
+        }
+    }
+}

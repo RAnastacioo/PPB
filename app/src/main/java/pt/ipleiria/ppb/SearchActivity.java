@@ -1,7 +1,6 @@
 package pt.ipleiria.ppb;
 
 import android.content.Context;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -17,14 +16,14 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import pt.ipleiria.ppb.model.Game;
-import pt.ipleiria.ppb.model.SingletonPPB;
 import pt.ipleiria.ppb.recyclerView.LineAdapter_game;
 
 
 public class SearchActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private LineAdapter_game mAdapter;
-    private LineAdapter_game  mAdapterSearch;
+    private LineAdapter_game mAdapterSearch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +50,7 @@ public class SearchActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String query) {
 
@@ -101,6 +101,7 @@ public class SearchActivity extends AppCompatActivity {
         // Configurando um dividr entre linhas, para uma melhor visualização.
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
+
     public void onClick_action_return(MenuItem item) {
         onBackPressed();
     }
