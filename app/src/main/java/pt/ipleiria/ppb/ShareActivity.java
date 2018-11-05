@@ -1,7 +1,9 @@
 package pt.ipleiria.ppb;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -95,23 +101,32 @@ public class ShareActivity extends AppCompatActivity {
                 toShareGames.add(g);
             }
         }
-        if (!toShareGames.isEmpty()) {
-            try {
-                FileOutputStream fileOutputStream =
-                        openFileOutput("sharedGames.bin", Context.MODE_PRIVATE);
-                ObjectOutputStream objectOutputStream =
-                        new ObjectOutputStream(fileOutputStream);
-                objectOutputStream.writeObject(toShareGames);
-                objectOutputStream.close();
-                fileOutputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(ShareActivity.this, "Could not write Game to internal storage.", Toast.LENGTH_LONG).show();
-            }
-
-            mAdapter.notifyDataSetChanged();
-        } else {
-            Toast.makeText(ShareActivity.this, "You must select at least one game to share!", Toast.LENGTH_LONG).show();
-        }
+        Gson gson = new Gson();
+        String toShareGamesJson = gson.toJson(toShareGames);
+//        if (!toShareGames.isEmpty()) {
+//            try {
+//                FileOutputStream fileOutputStream =
+//                        openFileOutput("sharedGames.bin", Context.MODE_PRIVATE);
+//                ObjectOutputStream objectOutputStream =
+//                        new ObjectOutputStream(fileOutputStream);
+//                objectOutputStream.writeObject(toShareGames);
+//                objectOutputStream.close();
+//                fileOutputStream.close();
+//                Toast.makeText(ShareActivity.this, "Game save to internal storage.", Toast.LENGTH_LONG).show();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                Toast.makeText(ShareActivity.this, "Could not write Game to internal storage.", Toast.LENGTH_LONG).show();
+//            }
+//
+//            mAdapter.notifyDataSetChanged();
+//        } else {
+//            Toast.makeText(ShareActivity.this, "You must select at least one game to share!", Toast.LENGTH_LONG).show();
+//        }
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, toShareGamesJson);
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
     }
+
 }

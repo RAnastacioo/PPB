@@ -73,13 +73,6 @@ public class SearchActivity extends AppCompatActivity {
                 recyclerView.addItemDecoration(new DividerItemDecoration(SearchActivity.this, DividerItemDecoration.VERTICAL));
                 mAdapterSearch.notifyDataSetChanged();
 
-                //close keyboard
-                View view = SearchActivity.this.getCurrentFocus();
-                if (view != null) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
-
                 return false;
             }
         });
