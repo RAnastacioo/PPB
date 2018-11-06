@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -120,8 +121,11 @@ public class ShareActivity extends AppCompatActivity {
             Snackbar.make(view, "Game is empty", Snackbar.LENGTH_LONG).show();
 
         } else {
-            Gson gson = new Gson();
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting().serializeNulls();
+            Gson gson = builder.create();
             String toShareGamesJson = gson.toJson(toShareGames);
+
             String fileName = "toShareGamesJson.txt";
             String path = writeFile(toShareGamesJson, fileName);
 
