@@ -12,7 +12,6 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,7 +39,6 @@ import java.util.Date;
 import pt.ipleiria.ppb.model.Game;
 import pt.ipleiria.ppb.model.SingletonPPB;
 import pt.ipleiria.ppb.recyclerView.LineAdapter_task;
-
 
 public class GameActivity extends AppCompatActivity {
 
@@ -169,9 +167,7 @@ public class GameActivity extends AppCompatActivity {
             fileOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(GameActivity.this,
-                    "Could not write Game to internal storage.",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(GameActivity.this, "Could not write Game to internal storage.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -247,7 +243,7 @@ public class GameActivity extends AppCompatActivity {
                 game.setDurationGame(duration);
                 game.setLastUpdate(getDateString());
 
-                Snackbar.make(view, "Edit Game Complete", Snackbar.LENGTH_LONG).show();
+                Toast.makeText(GameActivity.this, "Edit Game Complete", Toast.LENGTH_SHORT).show();
                 editing = false;
 
             } else {
@@ -256,7 +252,7 @@ public class GameActivity extends AppCompatActivity {
                 Game game = new Game(title, description, Author, duration);
                 PPB.getGames().add(game);
 
-                Snackbar.make(view, "Add Game Complete", Snackbar.LENGTH_LONG).show();
+                Toast.makeText(GameActivity.this, "Add Game Complete", Toast.LENGTH_SHORT).show();
             }
             // Check if no view has focus:  // use remove keyboard front view
             view = this.getCurrentFocus();

@@ -1,8 +1,6 @@
 package pt.ipleiria.ppb.recyclerView;
 
 
-import android.app.ActionBar;
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import pt.ipleiria.ppb.GameActivity;
 import pt.ipleiria.ppb.R;
 import pt.ipleiria.ppb.model.Game;
 import pt.ipleiria.ppb.model.SingletonPPB;
@@ -39,7 +36,7 @@ public class LineAdapter_game_Share extends RecyclerView.Adapter<LineHolder_game
         final int position = i;
         lineHolder.gameTitle.setText(mGames.get(i).getTitle());
         lineHolder.gameDescription.setText(mGames.get(i).getDescription());
-        lineHolder.view.setBackgroundColor(mGames.get(i).isSelected() ? Color.LTGRAY : Color.WHITE );
+        lineHolder.view.setBackgroundColor(mGames.get(i).isSelected() ? Color.LTGRAY : Color.WHITE);
 
         lineHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +103,7 @@ public class LineAdapter_game_Share extends RecyclerView.Adapter<LineHolder_game
         notifyItemMoved(fromPosition, toPosition);
         return true;
     }
+
     public ArrayList<Game> searchGame(String title) {
         ArrayList<Game> res = new ArrayList<>();
 

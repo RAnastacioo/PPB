@@ -55,10 +55,6 @@ public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game> {
         return mGames != null ? mGames.size() : 0;
     }
 
-    public void updateList(Game game) {
-        insertItem(game);
-    }
-
     public void updateFullList() {
         mGames = SingletonPPB.getInstance().getGames();
         notifyDataSetChanged();
@@ -103,6 +99,7 @@ public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game> {
         notifyItemMoved(fromPosition, toPosition);
         return true;
     }
+
     public ArrayList<Game> searchGame(String title) {
         ArrayList<Game> res = new ArrayList<>();
 

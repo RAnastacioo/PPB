@@ -36,21 +36,22 @@ public class SingletonPPB {
         return null;
     }
 
-    public Task containsID(String id,Game game) {
+    public Task containsID(String id, Game game) {
 
         for (int i = 0; i < game.getTasks().size(); i++) {
-           if( game.getTasks().get(i).getId().equals(id)){
-               return game.getTasks().get(i);
-           }
+            if (game.getTasks().get(i).getId().equals(id)) {
+                return game.getTasks().get(i);
+            }
 
         }
         return null;
     }
+
     public Task containsIDTask(String id) {
 
-        for (int i=0; i< games.size();i++) {
+        for (int i = 0; i < games.size(); i++) {
 
-            for (int j=0;j<games.get(i).getTasks().size() ;j++) {
+            for (int j = 0; j < games.get(i).getTasks().size(); j++) {
 
                 if (games.get(i).getTasks().get(j).getId().equals(id)) {
 

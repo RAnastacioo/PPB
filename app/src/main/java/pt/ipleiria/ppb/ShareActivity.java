@@ -1,15 +1,25 @@
 package pt.ipleiria.ppb;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 
+
+import android.util.Log;
 import android.view.Menu;
 
 import android.view.MenuItem;
@@ -19,11 +29,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
-
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import pt.ipleiria.ppb.model.Game;
@@ -34,8 +42,8 @@ public class ShareActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private LineAdapter_game_Share mAdapter;
-    private Toolbar toolbar;
-
+    private Context mContext = ShareActivity.this;
+    private static final int REQUEST = 112;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +53,12 @@ public class ShareActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher_icon);
 
+        if (Build.VERSION.SDK_INT >= 23) {
+            String[] PERMISSIONS = {android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            if (!hasPermissions(mContext, PERMISSIONS)) {
+                ActivityCompat.requestPermissions((Activity) mContext, PERMISSIONS, REQUEST);
+            }
+        }
 
         recyclerView = findViewById(R.id.recycler_view);
         setupRecycler();
@@ -81,6 +95,7 @@ public class ShareActivity extends AppCompatActivity {
         // Configurando um dividr entre linhas, para uma melhor visualização.
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -101,32 +116,84 @@ public class ShareActivity extends AppCompatActivity {
                 toShareGames.add(g);
             }
         }
-        Gson gson = new Gson();
-        String toShareGamesJson = gson.toJson(toShareGames);
-//        if (!toShareGames.isEmpty()) {
-//            try {
-//                FileOutputStream fileOutputStream =
-//                        openFileOutput("sharedGames.bin", Context.MODE_PRIVATE);
-//                ObjectOutputStream objectOutputStream =
-//                        new ObjectOutputStream(fileOutputStream);
-//                objectOutputStream.writeObject(toShareGames);
-//                objectOutputStream.close();
-//                fileOutputStream.close();
-//                Toast.makeText(ShareActivity.this, "Game save to internal storage.", Toast.LENGTH_LONG).show();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                Toast.makeText(ShareActivity.this, "Could not write Game to internal storage.", Toast.LENGTH_LONG).show();
-//            }
-//
-//            mAdapter.notifyDataSetChanged();
-//        } else {
-//            Toast.makeText(ShareActivity.this, "You must select at least one game to share!", Toast.LENGTH_LONG).show();
-//        }
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, toShareGamesJson);
-        sendIntent.setType("text/plain");
-        startActivity(sendIntent);
+        if (toShareGames.isEmpty()) {
+            Snackbar.make(view, "Game is empty", Snackbar.LENGTH_LONG).show();
+
+        } else {
+            Gson gson = new Gson();
+            String toShareGamesJson = gson.toJson(toShareGames);
+            String fileName = "toShareGamesJson.txt";
+            String path = writeFile(toShareGamesJson, fileName);
+
+            if (!path.isEmpty()) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Sharing games in Json \n PPB-PEDDY PAPER BUILDER 2018");
+                sendIntent.setType("text/*");
+                sendIntent.putExtra(Intent.EXTRA_SUBJECT, "PPB-GameShare");
+                sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + path));
+                startActivity(Intent.createChooser(sendIntent, "Send email..."));
+            }
+        }
     }
 
+    private boolean isExternalStorageWritable() {
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            Log.i("State", "Yes, it is writable!");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String writeFile(String data, String fileName) {
+        if (isExternalStorageWritable() && checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            File textFile = new File(Environment.getExternalStorageDirectory(), fileName);
+            String path = textFile.getAbsolutePath();
+
+            try {
+                FileOutputStream fos = new FileOutputStream(textFile);
+                fos.write(data.getBytes());
+                fos.close();
+                Snackbar.make(getCurrentFocus(), "File Saved.", Snackbar.LENGTH_SHORT).show();
+                return path;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Snackbar.make(getCurrentFocus(), "Cannot Write to External Storage.", Snackbar.LENGTH_SHORT).show();
+        }
+        return "";
+    }
+
+    public boolean checkPermission(String permission) {
+        int check = ContextCompat.checkSelfPermission(this, permission);
+        return (check == PackageManager.PERMISSION_GRANTED);
+    }
+
+    private static boolean hasPermissions(Context context, String... permissions) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //do here
+                } else {
+                    Toast.makeText(mContext, "The app was not allowed to write in your storage", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
 }

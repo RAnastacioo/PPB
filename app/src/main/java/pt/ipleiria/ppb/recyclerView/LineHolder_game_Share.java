@@ -14,7 +14,7 @@ public class LineHolder_game_Share extends RecyclerView.ViewHolder {
 
     public LineHolder_game_Share(@NonNull View itemView) {
         super(itemView);
-        view=itemView;
+        view = itemView;
         gameTitle = (TextView) itemView.findViewById(R.id.gametitle);
         gameDescription = (TextView) itemView.findViewById(R.id.gamedescription);
 

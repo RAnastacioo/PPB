@@ -2,7 +2,6 @@ package pt.ipleiria.ppb;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -13,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import pt.ipleiria.ppb.model.Game;
 import pt.ipleiria.ppb.model.SingletonPPB;
@@ -40,12 +40,12 @@ public class TaskActivity extends AppCompatActivity {
         EditText etTitle = findViewById(R.id.task_Title);
         EditText etDescription = findViewById(R.id.task_Description);
         EditText etValue = findViewById(R.id.task_value);
-        InputFilterMinMax filter = new InputFilterMinMax("0", "5") {};
+        InputFilterMinMax filter = new InputFilterMinMax("0", "5") {
+        };
         etValue.setFilters(new InputFilter[]{filter});
         TextView etId = findViewById(R.id.task_id);
         TextView etOrder = findViewById(R.id.task_order);
         Button btnAddtask = findViewById(R.id.btn_add_task);
-
 
 
         if (i.getStringExtra("id_viewTask") != null) {
@@ -127,8 +127,7 @@ public class TaskActivity extends AppCompatActivity {
                 task.setDescription(description);
                 task.setValue(value);
 
-                Snackbar.make(view, "Edit Task Complete", Snackbar.LENGTH_LONG).show();
-
+                Toast.makeText(TaskActivity.this, "Edit Task Complete", Toast.LENGTH_SHORT).show();
                 editing = false;
             } else {
                 // criar task
@@ -136,7 +135,7 @@ public class TaskActivity extends AppCompatActivity {
                 task.setOrder(game.getTasks().size() + 1);
                 game.getTasks().add(task);
 
-                Snackbar.make(view, "Add Task Complete", Snackbar.LENGTH_LONG).show();
+                Toast.makeText(TaskActivity.this, "Add Task Complete", Toast.LENGTH_SHORT).show();
             }
             // Check if no view has focus:  // use remove keyboard front view
             view = this.getCurrentFocus();

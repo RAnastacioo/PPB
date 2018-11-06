@@ -1,4 +1,5 @@
 package pt.ipleiria.ppb.model;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,17 +13,17 @@ public class Game implements Serializable {
     private String id;
     private String title;
     private String description;
-    private String Author;
+    private String author;
     private String lastUpdate;
     private int durationGame;
     private ArrayList<Task> tasks;
     private boolean isSelected = false;
 
     public Game(String title, String description, String Author, int durationGame) {
-        this.id =UUID.randomUUID().toString();
+        this.id = UUID.randomUUID().toString();
         this.title = title;
         this.description = description;
-        this.Author = Author;
+        this.author = Author;
         this.durationGame = durationGame;
         this.lastUpdate = getDateString();
         this.tasks = new ArrayList<>();
@@ -73,11 +74,11 @@ public class Game implements Serializable {
     }
 
     public String getAuthor() {
-        return Author;
+        return author;
     }
 
     public void setAuthor(String author) {
-        Author = author;
+        this.author = author;
     }
 
     public String getLastUpdate() {
