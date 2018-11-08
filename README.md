@@ -1,6 +1,4 @@
->###  Colocar snackbar's do editar e criar jogo e task 
->###  Search screen 
->###  Share screen
+
 #  Programação para Dispositivos Móveis
 # PPB - Peddy Paper Builder
 # android:maxLength="1" colocar nas edittext
