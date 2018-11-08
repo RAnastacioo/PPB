@@ -118,7 +118,7 @@ public class ShareActivity extends AppCompatActivity {
             }
         }
         if (toShareGames.isEmpty()) {
-            Snackbar.make(view, "Game is empty", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(view, "It is necessary to select some game", Snackbar.LENGTH_LONG).show();
 
         } else {
             GsonBuilder builder = new GsonBuilder();
