@@ -45,7 +45,7 @@ public class ShareActivity extends AppCompatActivity {
     private LineAdapter_game_Share mAdapter;
     private Context mContext = ShareActivity.this;
     private static final int REQUEST = 112;
-
+ 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
