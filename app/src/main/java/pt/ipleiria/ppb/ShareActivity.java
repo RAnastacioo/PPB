@@ -2,6 +2,7 @@ package pt.ipleiria.ppb;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -77,6 +78,7 @@ public class ShareActivity extends AppCompatActivity {
         onBackPressed();
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -119,6 +121,7 @@ public class ShareActivity extends AppCompatActivity {
         }
         if (toShareGames.isEmpty()) {
             Snackbar.make(view, R.string.It_is_necessary_to_select_some_game, Snackbar.LENGTH_LONG).show();
+            mAdapter.notifyDataSetChanged();
 
         } else {
             GsonBuilder builder = new GsonBuilder();
@@ -128,8 +131,8 @@ public class ShareActivity extends AppCompatActivity {
 
             String fileName = "toShareGamesJson.txt";
             File textFile = new File(Environment.getExternalStorageDirectory(), fileName);
-            writeFile(toShareGamesJson, textFile);
-            String path = textFile.getAbsolutePath();
+            String path = writeFile(toShareGamesJson, textFile);
+            //String path = textFile.getAbsolutePath();
 
 
             if (!path.isEmpty()) {
@@ -143,6 +146,9 @@ public class ShareActivity extends AppCompatActivity {
                 //sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + path));
                 startActivity(Intent.createChooser(sendIntent, "Send email..."));
             }
+
+
+
         }
     }
 
@@ -155,7 +161,7 @@ public class ShareActivity extends AppCompatActivity {
         }
     }
 
-    public void writeFile(String data, File textFile) {
+    public String writeFile(String data, File textFile) {
         if (isExternalStorageWritable() && checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             String path = textFile.getAbsolutePath();
 
@@ -164,14 +170,15 @@ public class ShareActivity extends AppCompatActivity {
                 fos.write(data.getBytes());
                 fos.close();
                 Snackbar.make(getCurrentFocus(), R.string.File_Saved, Snackbar.LENGTH_SHORT).show();
-                // return path;
+                return path;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
             Snackbar.make(getCurrentFocus(), R.string.Cannot_Write_to_External_Storage, Snackbar.LENGTH_SHORT).show();
+            mAdapter.notifyDataSetChanged();
         }
-        //return "";
+        return "";
     }
 
     public boolean checkPermission(String permission) {
