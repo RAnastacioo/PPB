@@ -20,6 +20,10 @@ import pt.ipleiria.ppb.model.Task;
 
 public class TaskActivity extends AppCompatActivity {
 
+    public static final String ID_VIEW_TASK = "id_viewTask";
+    public static final String ID_ADD_TASK = "id_addTask";
+    public static final String ID_EDIT_TASK = "id_EditTask";
+    public static final String ID_EDIT_TASK_GAME = "id_EditTaskGame";
     private SingletonPPB PPB;
     private Game game;
     private Task task;
@@ -48,8 +52,8 @@ public class TaskActivity extends AppCompatActivity {
         Button btnAddtask = findViewById(R.id.btn_add_task);
 
 
-        if (i.getStringExtra("id_viewTask") != null) {
-            String idgame = i.getStringExtra("id_viewTask");
+        if (i.getStringExtra(ID_VIEW_TASK) != null) {
+            String idgame = i.getStringExtra(ID_VIEW_TASK);
             task = PPB.containsIDTask(idgame);
 
             etTitle.setHint(task.getTitle());
@@ -64,8 +68,8 @@ public class TaskActivity extends AppCompatActivity {
             btnAddtask.setVisibility(View.INVISIBLE);
         }
 
-        if (i.getStringExtra("id_addTask") != null) {
-            String id = i.getStringExtra("id_addTask");
+        if (i.getStringExtra(ID_ADD_TASK) != null) {
+            String id = i.getStringExtra(ID_ADD_TASK);
             game = PPB.containsID(id);
 
             TextView textid = findViewById(R.id.id);
@@ -78,21 +82,21 @@ public class TaskActivity extends AppCompatActivity {
             task_order.setVisibility(View.INVISIBLE);
         }
 
-        if (i.getStringExtra("id_EditTask") != null && i.getStringExtra("id_EditTaskGame") != null) {
+        if (i.getStringExtra(ID_EDIT_TASK) != null && i.getStringExtra(ID_EDIT_TASK_GAME) != null) {
             editing = true;
-            String idgame = i.getStringExtra("id_EditTaskGame");
+            String idgame = i.getStringExtra(ID_EDIT_TASK_GAME);
             game = PPB.containsID(idgame);
-            String idtask = i.getStringExtra("id_EditTask");
+            String idtask = i.getStringExtra(ID_EDIT_TASK);
             task = PPB.containsID(idtask, game);
 
 
-            etTitle.setText(task.getTitle());
-            etDescription.setText(task.getDescription());
+            etTitle.setText("" + task.getTitle());
+            etDescription.setText("" + task.getDescription());
             etValue.setText("" + task.getValue());
             etId.setText("" + task.getId());
             etOrder.setText("" + task.getOrder());
 
-            btnAddtask.setText("Edit Task");
+            btnAddtask.setText(getString(R.string.Edit_Task));
 
         }
 
@@ -127,7 +131,7 @@ public class TaskActivity extends AppCompatActivity {
                 task.setDescription(description);
                 task.setValue(value);
 
-                Toast.makeText(TaskActivity.this, "Edit Task Complete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TaskActivity.this, getString(R.string.Edit_Task_Complete), Toast.LENGTH_SHORT).show();
                 editing = false;
             } else {
                 // criar task
@@ -135,7 +139,7 @@ public class TaskActivity extends AppCompatActivity {
                 task.setOrder(game.getTasks().size() + 1);
                 game.getTasks().add(task);
 
-                Toast.makeText(TaskActivity.this, "Add Task Complete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TaskActivity.this, getString(R.string.Add_Task_Complete), Toast.LENGTH_SHORT).show();
             }
             // Check if no view has focus:  // use remove keyboard front view
             view = this.getCurrentFocus();

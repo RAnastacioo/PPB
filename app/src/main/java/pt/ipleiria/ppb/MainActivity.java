@@ -33,6 +33,7 @@ import pt.ipleiria.ppb.recyclerView.LineAdapter_game;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String ID_EDIT_GAME = "id_EditGame";
     private RecyclerView recyclerView;
     private LineAdapter_game mAdapter;
     private Paint p = new Paint();
@@ -94,9 +95,7 @@ public class MainActivity extends AppCompatActivity {
             fileOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(MainActivity.this,
-                    "Could not write Game to internal storage.",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getString(R.string.Error_write_Game_to_internal), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -146,10 +145,9 @@ public class MainActivity extends AppCompatActivity {
 
                 } else if (direction == ItemTouchHelper.RIGHT) {
                     Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                    intent.putExtra("id_EditGame", mAdapter.EditItem(position));
+                    intent.putExtra(ID_EDIT_GAME, mAdapter.EditItem(position));
                     startActivity(intent);
                 }
-
             }
 
             @Override
@@ -163,14 +161,14 @@ public class MainActivity extends AppCompatActivity {
                     float width = height / 3;
 
                     if (dX > 0) {
-                        p.setColor(Color.parseColor("#388E3C"));
+                        p.setColor(Color.parseColor(getString(R.string.Green_color)));
                         RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX, (float) itemView.getBottom());
                         c.drawRect(background, p);
                         icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_edit);
                         RectF icon_dest = new RectF((float) itemView.getLeft() + width, (float) itemView.getTop() + width, (float) itemView.getLeft() + 2 * width, (float) itemView.getBottom() - width);
                         c.drawBitmap(icon, null, icon_dest, p);
                     } else {
-                        p.setColor(Color.parseColor("#D32F2F"));
+                        p.setColor(Color.parseColor(getString(R.string.Red_color)));
                         RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
                         c.drawRect(background, p);
                         icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_delete);

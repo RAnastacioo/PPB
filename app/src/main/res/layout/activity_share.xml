@@ -17,7 +17,7 @@
         android:autoLink="none"
         android:elevation="0dp"
         android:onClick="onClickbtn_share"
-        android:text="Share"
+        android:text="@string/share"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

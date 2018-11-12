@@ -55,7 +55,7 @@ public class SearchActivity extends AppCompatActivity {
                 ArrayList<Game> resultadoDaPesquisa = mAdapter.searchGame(query);
 
                 if (resultadoDaPesquisa.isEmpty()) {
-                    Toast.makeText(SearchActivity.this, "No Games found...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchActivity.this, getString(R.string.No_Games_Found), Toast.LENGTH_SHORT).show();
                 }
 
                 // Configurando o gerenciador de layout para ser uma lista.
