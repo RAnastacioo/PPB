@@ -52,4 +52,7 @@
     <string name="add_task">Add Task</string>
     <string name="game_tasks">Game Tasks</string>
     <string name="title_activity_Share">Share Activity</string>
+    <string name="Sharing_games_in_Json">Sharing games in Json</string>
+    <string name="Invalid_number">Invalid number!</string>
+    <string name="Value_Between">Value Between (0-5)</string>
 </resources>

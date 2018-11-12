@@ -20,21 +20,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        </ScrollView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include
-                android:id="@+id/include_game"
-                layout="@layout/content_gameinfo"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible" />
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <include
+                    android:id="@+id/include_game"
+                    layout="@layout/content_gameinfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+        </ScrollView>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/add_task"

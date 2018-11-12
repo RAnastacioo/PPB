@@ -110,13 +110,13 @@ public class TaskActivity extends AppCompatActivity {
 
 
         if (etTitle.getText().toString().isEmpty()) {
-            etTitle.setError("");
+            etTitle.setError(getString(R.string.Invalid_Title));
         }
         if (etDescription.getText().toString().isEmpty()) {
-            etDescription.setError("");
+            etDescription.setError(getString(R.string.Invalid_Description));
         }
         if (etValue.getText().toString().isEmpty()) {
-            etValue.setError("Invalid number!\nValue Between (0-5)");
+            etValue.setError(getString(R.string.Invalid_number) + "\n" + getString(R.string.Value_Between));
         }
 
         if (!etTitle.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty() && !etValue.getText().toString().isEmpty()) {

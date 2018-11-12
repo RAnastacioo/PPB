@@ -17,7 +17,7 @@
     <string name="value05">Número inválido! Valor deve ser entre 0 e 5</string>
     <string name="Error_write_Game_to_internal">Não foi possível gravar o jogo no armazenamento interno!</string>
     <string name="Edit_Game_Complete">Jogo editado com sucesso!</string>
-    <string name="Add_Game_Complete">Jogo adicíonado com sucesso!</string>
+    <string name="Add_Game_Complete">Jogo adicionado com sucesso!</string>
     <string name="No_Games_Found">Nenhum jogo encontrado...</string>
     <string name="It_is_necessary_to_select_some_game">É necessário selecionar pelo menos um jogo!</string>
     <string name="File_Saved">Ficheiro guardado com sucesso!</string>
@@ -41,4 +41,7 @@
     <string name="add_task">Adicionar</string>
     <string name="game_tasks">Tarefas do jogo</string>
     <string name="title_activity_Share">Partilhar</string>
+    <string name="Sharing_games_in_Json">Partilha de jogos em Json</string>
+    <string name="Invalid_number">Número inválido!</string>
+    <string name="Value_Between">Valor deve de ser entre (0-5)</string>
 </resources>

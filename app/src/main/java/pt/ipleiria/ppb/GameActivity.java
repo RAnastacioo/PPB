@@ -377,9 +377,7 @@ public class GameActivity extends AppCompatActivity {
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             }
         };
-
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
-
     }
 
     public String getDateString() {

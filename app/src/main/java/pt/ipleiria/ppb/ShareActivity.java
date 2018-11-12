@@ -9,15 +9,17 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 
 import android.util.Log;
 import android.view.Menu;
@@ -25,7 +27,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -106,7 +107,6 @@ public class ShareActivity extends AppCompatActivity {
                 g.setSelected(false);
             }
         }
-
     }
 
     public void onClickbtn_share(View view) {
@@ -118,7 +118,7 @@ public class ShareActivity extends AppCompatActivity {
             }
         }
         if (toShareGames.isEmpty()) {
-            Snackbar.make(view, "It is necessary to select some game", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(view, R.string.It_is_necessary_to_select_some_game, Snackbar.LENGTH_LONG).show();
 
         } else {
             GsonBuilder builder = new GsonBuilder();
@@ -127,16 +127,20 @@ public class ShareActivity extends AppCompatActivity {
             String toShareGamesJson = gson.toJson(toShareGames);
 
             String fileName = "toShareGamesJson.txt";
-            String path = writeFile(toShareGamesJson, fileName);
+            File textFile = new File(Environment.getExternalStorageDirectory(), fileName);
+            writeFile(toShareGamesJson, textFile);
+            String path = textFile.getAbsolutePath();
+
 
             if (!path.isEmpty()) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Sharing games in Json \n PPB-PEDDY PAPER BUILDER 2018");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "PPB-PEDDY PAPER BUILDER 2018 \n" + getString(R.string.Sharing_games_in_Json));
                 sendIntent.setType("text/*");
                 sendIntent.putExtra(Intent.EXTRA_SUBJECT, "PPB-GameShare");
                 sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + path));
+                sendIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(ShareActivity.this,getString(R.string.file_provider_authority),textFile));  // android 8
+                //sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + path));
                 startActivity(Intent.createChooser(sendIntent, "Send email..."));
             }
         }
@@ -151,24 +155,23 @@ public class ShareActivity extends AppCompatActivity {
         }
     }
 
-    public String writeFile(String data, String fileName) {
+    public void writeFile(String data, File textFile) {
         if (isExternalStorageWritable() && checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            File textFile = new File(Environment.getExternalStorageDirectory(), fileName);
             String path = textFile.getAbsolutePath();
 
             try {
                 FileOutputStream fos = new FileOutputStream(textFile);
                 fos.write(data.getBytes());
                 fos.close();
-                Snackbar.make(getCurrentFocus(), "File Saved.", Snackbar.LENGTH_SHORT).show();
-                return path;
+                Snackbar.make(getCurrentFocus(), R.string.File_Saved, Snackbar.LENGTH_SHORT).show();
+                // return path;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            Snackbar.make(getCurrentFocus(), "Cannot Write to External Storage.", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getCurrentFocus(), R.string.Cannot_Write_to_External_Storage, Snackbar.LENGTH_SHORT).show();
         }
-        return "";
+        //return "";
     }
 
     public boolean checkPermission(String permission) {
@@ -195,7 +198,7 @@ public class ShareActivity extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //do here
                 } else {
-                    Toast.makeText(mContext, "The app was not allowed to write in your storage", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, R.string.The_app_was_not_allowed_to_write_in_your_storage, Toast.LENGTH_LONG).show();
                 }
             }
         }
