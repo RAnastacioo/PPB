@@ -118,7 +118,7 @@ public class ShareActivity extends AppCompatActivity {
             }
         }
         if (toShareGames.isEmpty()) {
-            Snackbar.make(view, R.string.It_is_necessary_to_select_some_game, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(view, "It is necessary to select some game", Snackbar.LENGTH_LONG).show();
 
         } else {
             GsonBuilder builder = new GsonBuilder();
@@ -129,7 +129,7 @@ public class ShareActivity extends AppCompatActivity {
             String fileName = "toShareGamesJson.txt";
             String path = writeFile(toShareGamesJson, fileName);
 
-            //if (!path.isEmpty()) {
+            if (!path.isEmpty()) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "Sharing games in Json \n PPB-PEDDY PAPER BUILDER 2018");
@@ -138,7 +138,7 @@ public class ShareActivity extends AppCompatActivity {
                 sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + path));
                 startActivity(Intent.createChooser(sendIntent, "Send email..."));
-            //}
+            }
         }
     }
 
@@ -160,13 +160,13 @@ public class ShareActivity extends AppCompatActivity {
                 FileOutputStream fos = new FileOutputStream(textFile);
                 fos.write(data.getBytes());
                 fos.close();
-                Snackbar.make(getCurrentFocus(), R.string.File_Saved, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(getCurrentFocus(), "File Saved.", Snackbar.LENGTH_SHORT).show();
                 return path;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            Snackbar.make(getCurrentFocus(), R.string.Cannot_Write_to_External_Storage, Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getCurrentFocus(), "Cannot Write to External Storage.", Snackbar.LENGTH_SHORT).show();
         }
         return "";
     }
@@ -175,8 +175,6 @@ public class ShareActivity extends AppCompatActivity {
         int check = ContextCompat.checkSelfPermission(this, permission);
         return (check == PackageManager.PERMISSION_GRANTED);
     }
-
-
 
     private static boolean hasPermissions(Context context, String... permissions) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
@@ -197,7 +195,7 @@ public class ShareActivity extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //do here
                 } else {
-                    Toast.makeText(mContext, getString(R.string.The_app_was_not_allowed_to_write_in_your_storage), Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "The app was not allowed to write in your storage", Toast.LENGTH_LONG).show();
                 }
             }
         }
