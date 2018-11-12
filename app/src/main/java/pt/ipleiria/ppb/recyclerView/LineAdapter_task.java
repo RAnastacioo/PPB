@@ -17,6 +17,7 @@ import pt.ipleiria.ppb.model.Task;
 
 public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
 
+    public static final String ID_VIEW_TASK = "id_viewTask";
     private ArrayList<Task> mTaks;
 
     public LineAdapter_task(ArrayList taks) {
@@ -42,7 +43,7 @@ public class LineAdapter_task extends RecyclerView.Adapter<LineHolder_task> {
             public void onClick(View v) {
 
                 Intent intent = new Intent(v.getContext(), TaskActivity.class);
-                intent.putExtra("id_viewTask", mTaks.get(position).getId());
+                intent.putExtra(ID_VIEW_TASK, mTaks.get(position).getId());
                 v.getContext().startActivity(intent);
             }
         });
