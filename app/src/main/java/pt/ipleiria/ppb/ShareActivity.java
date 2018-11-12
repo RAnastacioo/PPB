@@ -128,14 +128,14 @@ public class ShareActivity extends AppCompatActivity {
 
             String fileName = "toShareGamesJson.txt";
             File textFile = new File(Environment.getExternalStorageDirectory(), fileName);
-            writeFile(toShareGamesJson, textFile);
-            String path = textFile.getAbsolutePath();
+            String path = writeFile(toShareGamesJson, textFile);
+          //String path = textFile.getAbsolutePath();
 
 
             if (!path.isEmpty()) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Sharing games in Json \n PPB-PEDDY PAPER BUILDER 2018");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Sharing games in Json "+"\n" + "PPB-PEDDY PAPER BUILDER 2018");
                 sendIntent.setType("text/*");
                 sendIntent.putExtra(Intent.EXTRA_SUBJECT, "PPB-GameShare");
                 sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -155,7 +155,7 @@ public class ShareActivity extends AppCompatActivity {
         }
     }
 
-    public void writeFile(String data, File textFile) {
+    public String writeFile(String data, File textFile) {
         if (isExternalStorageWritable() && checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             String path = textFile.getAbsolutePath();
 
@@ -164,14 +164,14 @@ public class ShareActivity extends AppCompatActivity {
                 fos.write(data.getBytes());
                 fos.close();
                 Snackbar.make(getCurrentFocus(), "File Saved.", Snackbar.LENGTH_SHORT).show();
-               // return path;
+               return path;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
             Snackbar.make(getCurrentFocus(), "Cannot Write to External Storage.", Snackbar.LENGTH_SHORT).show();
         }
-        //return "";
+        return "";
     }
 
     public boolean checkPermission(String permission) {
