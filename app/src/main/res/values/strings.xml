@@ -22,4 +22,5 @@
     <string name="Invalid_Author_Name">Invalid Author Name!</string>
     <string name="Invalid_Time_Duration">Invalid Time Duration!</string>
     <string name="value05">Invalid number! Value Between (0-5)</string>
+    <string name="file_provider_authority" translatable="false"> pt.ipleiria.ppb.fileprovider</string>
 </resources>
