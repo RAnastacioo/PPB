@@ -97,7 +97,7 @@ public class TaskActivity extends AppCompatActivity {
             etOrder.setText("" + task.getOrder());
 
             btnAddtask.setText(getString(R.string.Edit_Task));
-
+ 
         }
 
     }
