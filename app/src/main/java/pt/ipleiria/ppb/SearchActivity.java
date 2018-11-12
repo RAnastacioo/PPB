@@ -1,13 +1,27 @@
 package pt.ipleiria.ppb;
 
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -18,9 +32,15 @@ import pt.ipleiria.ppb.recyclerView.LineAdapter_game;
 
 
 public class SearchActivity extends AppCompatActivity {
+
+    public static final String ID_EDIT_TASK = "id_EditTask";
+    public static final String ID_EDIT_TASK_GAME = "id_EditTaskGame";
+
     private RecyclerView recyclerView;
     private LineAdapter_game mAdapter;
     private LineAdapter_game mAdapterSearch;
+    private Game game;
+    private Paint p = new Paint();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +75,7 @@ public class SearchActivity extends AppCompatActivity {
                 ArrayList<Game> resultadoDaPesquisa = mAdapter.searchGame(query);
 
                 if (resultadoDaPesquisa.isEmpty()) {
-                    Toast.makeText(SearchActivity.this, "No Games found...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchActivity.this, getString(R.string.No_Games_Found), Toast.LENGTH_SHORT).show();
                 }
 
                 // Configurando o gerenciador de layout para ser uma lista.
@@ -101,5 +121,9 @@ public class SearchActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
     }
+
+
+
+
 }
 

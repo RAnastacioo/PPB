@@ -19,6 +19,7 @@ import pt.ipleiria.ppb.model.SingletonPPB;
 
 public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game> {
 
+    public static final String ID_VIEW_GAME = "id_viewGame";
     private List<Game> mGames;
 
     public LineAdapter_game(ArrayList games) {
@@ -43,7 +44,7 @@ public class LineAdapter_game extends RecyclerView.Adapter<LineHolder_game> {
             public void onClick(View v) {
 
                 Intent intent = new Intent(v.getContext(), GameActivity.class);
-                intent.putExtra("id_viewGame", mGames.get(position).getId());
+                intent.putExtra(ID_VIEW_GAME, mGames.get(position).getId());
                 v.getContext().startActivity(intent);
             }
         });

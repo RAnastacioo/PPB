@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_main">Atividade Principal</string>
+    <string name="title_activity_game">Jogos</string>
+    <string name="title_activity_task">Tarefas</string>
+    <string name="title_activity_Search">Procurar</string>
+    <string name="action_settings">Definições</string>
+    <string name="title_notifications">Notificações</string>
+    <string name="delete_game">Eliminar jogo</string>
+    <string name="delete_game_mensage">Tem a certeza de que pretende eliminar jogo?</string>
+    <string name="delete_task">Eliminar tarefa</string>
+    <string name="delete_task_mensage">Tem a certeza de que pretende eliminar tarefa?</string>
+    <string name="Invalid_Title">Título inválido!</string>
+    <string name="Invalid_Description">Descrição inválida!</string>
+    <string name="Invalid_Author_Name">Nome do autor inválido!</string>
+    <string name="Invalid_Time_Duration">Tempo de duração inválido!</string>
+    <string name="value05">Número inválido! Valor deve ser entre 0 e 5</string>
+    <string name="Error_write_Game_to_internal">Não foi possível gravar o jogo no armazenamento interno!</string>
+    <string name="Edit_Game_Complete">Jogo editado com sucesso!</string>
+    <string name="Add_Game_Complete">Jogo adicionado com sucesso!</string>
+    <string name="No_Games_Found">Nenhum jogo encontrado...</string>
+    <string name="It_is_necessary_to_select_some_game">É necessário selecionar pelo menos um jogo!</string>
+    <string name="File_Saved">Ficheiro guardado com sucesso!</string>
+    <string name="Cannot_Write_to_External_Storage">Não é possível gravar no armazenamento externo!</string>
+    <string name="The_app_was_not_allowed_to_write_in_your_storage">A aplicação não tem permissão para gravar no seu armazenamento!</string>
+    <string name="Edit_Task_Complete">Tarefa editada com sucesso!</string>
+    <string name="Add_Task_Complete">Tarefa adicionada com sucesso!</string>
+    <string name="Edit_Game_btn">Editar jogo</string>
+    <string name="Edit_Task">Editar tarefa</string>
+    <string name="title">Título</string>
+    <string name="Description">Descrição</string>
+    <string name="Author_of_the_game">Autor do jogo</string>
+    <string name="Maximum_duration_of_the_game_minutes">Duração máxima do jogo (minutos)</string>
+    <string name="Last_update">"Última atualização: "</string>
+    <string name="add_game">Adicionar jogo</string>
+    <string name="search">Procurar</string>
+    <string name="share">Partilhar</string>
+    <string name="description">Descrição</string>
+    <string name="value_0_to_5">Valor (0 a 5)</string>
+    <string name="order">"Ordem: "</string>
+    <string name="add_task">Adicionar</string>
+    <string name="game_tasks">Tarefas do jogo</string>
+    <string name="title_activity_Share">Partilhar</string>
+    <string name="Sharing_games_in_Json">Partilha de jogos em Json</string>
+    <string name="Invalid_number">Número inválido!</string>
+    <string name="Value_Between">Valor deve de ser entre (0-5)</string>
+</resources>

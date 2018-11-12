@@ -45,7 +45,7 @@
             android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".ShareActivity"
-            android:label="ShareActivity"
+            android:label="@string/title_activity_Share"
             android:theme="@style/AppTheme"></activity>
     </application>
 </manifest>

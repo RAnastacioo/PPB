@@ -42,6 +42,12 @@ import pt.ipleiria.ppb.recyclerView.LineAdapter_task;
 
 public class GameActivity extends AppCompatActivity {
 
+    public static final String ID_EDIT_TASK = "id_EditTask";
+    public static final String ID_EDIT_TASK_GAME = "id_EditTaskGame";
+    public static final String ID_EDIT_GAME = "id_EditGame";
+    public static final String ID_ADD_TASK = "id_addTask";
+    public static final String ID_VIEW_GAME = "id_viewGame";
+
     private SingletonPPB PPB;
     private RecyclerView recyclerView;
     private LineAdapter_task mAdapter;
@@ -88,7 +94,7 @@ public class GameActivity extends AppCompatActivity {
 
         Intent i = getIntent();
 
-        if (i.getStringExtra("id_viewGame") != null) {
+        if (i.getStringExtra(ID_VIEW_GAME) != null) {
             editing = false;
             vbtAddgame.setVisibility(View.INVISIBLE);
             vfab.setVisibility(View.VISIBLE);
@@ -98,7 +104,7 @@ public class GameActivity extends AppCompatActivity {
             vdate.setVisibility(View.VISIBLE);
             vgame_Update.setVisibility(View.VISIBLE);
 
-            final String id = i.getStringExtra("id_viewGame");
+            final String id = i.getStringExtra(ID_VIEW_GAME);
             game = PPB.containsID(id);
 
             mAdapter.updateFullList(game);
@@ -119,13 +125,13 @@ public class GameActivity extends AppCompatActivity {
                 public void onClick(View view) {
 
                     Intent intent = new Intent(GameActivity.this, TaskActivity.class);
-                    intent.putExtra("id_addTask", game.getId());
+                    intent.putExtra(ID_ADD_TASK, game.getId());
                     startActivity(intent);
                 }
             });
         }
 
-        if (i.getStringExtra("id_EditGame") != null) {
+        if (i.getStringExtra(ID_EDIT_GAME) != null) {
             editing = true;
             include_gametask.setVisibility(View.INVISIBLE);
             vbtAddgame.setVisibility(View.VISIBLE);
@@ -136,7 +142,7 @@ public class GameActivity extends AppCompatActivity {
             vgame_Update.setVisibility(View.VISIBLE);
 
             Button btnAddgame = findViewById(R.id.btn_add_game);
-            final String id = i.getStringExtra("id_EditGame");
+            final String id = i.getStringExtra(ID_EDIT_GAME);
             game = PPB.containsID(id);
 
             mAdapter.updateFullList(game);
@@ -148,7 +154,7 @@ public class GameActivity extends AppCompatActivity {
             etId.setText("" + game.getId());
             etDate.setText(game.getLastUpdate());
 
-            btnAddgame.setText("Edit Game");
+            btnAddgame.setText(getString(R.string.Edit_Game_btn));
 
         }
     }
@@ -167,7 +173,7 @@ public class GameActivity extends AppCompatActivity {
             fileOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(GameActivity.this, "Could not write Game to internal storage.", Toast.LENGTH_LONG).show();
+            Toast.makeText(GameActivity.this, getString(R.string.Error_write_Game_to_internal), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -243,7 +249,7 @@ public class GameActivity extends AppCompatActivity {
                 game.setDurationGame(duration);
                 game.setLastUpdate(getDateString());
 
-                Toast.makeText(GameActivity.this, "Edit Game Complete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GameActivity.this, getString(R.string.Edit_Game_Complete), Toast.LENGTH_SHORT).show();
                 editing = false;
 
             } else {
@@ -252,7 +258,7 @@ public class GameActivity extends AppCompatActivity {
                 Game game = new Game(title, description, Author, duration);
                 PPB.getGames().add(game);
 
-                Toast.makeText(GameActivity.this, "Add Game Complete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GameActivity.this, getString(R.string.Add_Game_Complete), Toast.LENGTH_SHORT).show();
             }
             // Check if no view has focus:  // use remove keyboard front view
             view = this.getCurrentFocus();
@@ -336,8 +342,8 @@ public class GameActivity extends AppCompatActivity {
                             .show().setCanceledOnTouchOutside(false);
                 } else if (direction == ItemTouchHelper.RIGHT) {
                     Intent intent = new Intent(GameActivity.this, TaskActivity.class);
-                    intent.putExtra("id_EditTask", mAdapter.EditItem(position));
-                    intent.putExtra("id_EditTaskGame", game.getId());
+                    intent.putExtra(ID_EDIT_TASK, mAdapter.EditItem(position));
+                    intent.putExtra(ID_EDIT_TASK_GAME, game.getId());
                     startActivity(intent);
                 }
             }
@@ -353,14 +359,14 @@ public class GameActivity extends AppCompatActivity {
                     float width = height / 3;
 
                     if (dX > 0) {
-                        p.setColor(Color.parseColor("#388E3C"));
+                        p.setColor(Color.parseColor(getString(R.string.Green_color)));
                         RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX, (float) itemView.getBottom());
                         c.drawRect(background, p);
                         icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_edit);
                         RectF icon_dest = new RectF((float) itemView.getLeft() + width, (float) itemView.getTop() + width, (float) itemView.getLeft() + 2 * width, (float) itemView.getBottom() - width);
                         c.drawBitmap(icon, null, icon_dest, p);
                     } else {
-                        p.setColor(Color.parseColor("#D32F2F"));
+                        p.setColor(Color.parseColor(getString(R.string.Red_color)));
                         RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
                         c.drawRect(background, p);
                         icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_delete);
@@ -371,9 +377,7 @@ public class GameActivity extends AppCompatActivity {
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             }
         };
-
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
-
     }
 
     public String getDateString() {
